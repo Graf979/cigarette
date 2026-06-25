@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Бросаю">
+<title>Бросаю курить</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#0A0A0A;color:#fff;min-height:100vh;max-width:430px;margin:0 auto}
+:root{
+  --green:#30D158;--green-bg:rgba(48,209,88,0.12);--green-dark:#1A8A35;
+  --red:#FF453A;--red-bg:rgba(255,69,58,0.12);
+  --amber:#FF9F0A;--amber-bg:rgba(255,159,10,0.12);
+  --blue:#0A84FF;--blue-bg:rgba(10,132,255,0.12);
+  --card:#1C1C1E;--card2:#2C2C2E;--border:rgba(255,255,255,0.08);
+  --text:#fff;--text2:#AEAEB2;--text3:#636366;--surface:#3A3A3C
+}
+.app{min-height:100vh;background:#0A0A0A;padding-bottom:80px}
+
+/* ── Header ── */
+.header{background:#0A0A0A;padding:52px 20px 16px;border-bottom:0.5px solid var(--border)}
+.streak-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.streak-pill{display:flex;align-items:center;gap:6px;background:var(--amber-bg);border-radius:20px;padding:6px 12px;border:0.5px solid rgba(255,159,10,0.3)}
+.streak-txt{font-size:13px;font-weight:700;color:var(--amber)}
+.record-txt{font-size:12px;color:var(--text3)}
+.hero{text-align:center;margin-bottom:16px}
+.hero-num{font-size:60px;font-weight:700;color:#fff;letter-spacing:-3px;line-height:1}
+.hero-sub{font-size:13px;color:var(--text2);margin-top:3px}
+.hero-tag{font-size:15px;font-weight:600;color:var(--green);margin-top:8px}
+
+/* ── Cards ── */
+.card{background:var(--card);border-radius:18px;padding:16px;margin:10px 16px 0;border:0.5px solid var(--border)}
+.card.danger{border-color:rgba(255,69,58,0.4);background:#1A0A0A}
+.card.warning{border-color:rgba(255,159,10,0.3)}
+.card-title{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+
+/* ── Today counter ── */
+.cig-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cig-limit-lbl{font-size:13px;color:var(--amber);font-weight:600}
+.cig-nums{display:flex;align-items:baseline;gap:6px;margin-bottom:10px}
+.cig-now{font-size:48px;font-weight:700;letter-spacing:-2px;line-height:1;transition:color 0.3s}
+.cig-max{font-size:18px;color:var(--text2)}
+.bars{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.bar{height:10px;border-radius:3px;background:var(--surface);flex:1;min-width:14px;max-width:28px;transition:background 0.3s}
+.bar.smoked{background:var(--red)}
+.bar.free{background:var(--green)}
+.bar.over{background:var(--red);opacity:1}
+.log-btn{background:var(--green);border-radius:12px;padding:14px;text-align:center;font-size:15px;font-weight:700;color:#000;cursor:pointer;border:none;width:100%;font-family:inherit}
+.log-btn:active{transform:scale(0.97)}
+.log-btn.disabled{background:var(--surface);color:var(--text3)}
+
+/* ── Penalty block ── */
+.penalty-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.penalty-row:last-child{border-bottom:none}
+.pen-icon{font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.pen-txt{font-size:13px;color:#fff;flex:1}
+.pen-val{font-size:13px;font-weight:700;color:var(--amber)}
+
+/* ── Stats grid ── */
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 16px 0}
+.stat-box{background:var(--card);border-radius:14px;padding:14px;border:0.5px solid var(--border)}
+.stat-lbl{font-size:11px;color:var(--text2);margin-bottom:4px}
+.stat-val{font-size:20px;font-weight:700}
+
+/* ── Health milestones ── */
+.health-section{padding:10px 16px 0}
+.section-title{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.milestone{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)}
+.milestone:last-child{border-bottom:none}
+.ms-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ms-info{flex:1}
+.ms-name{font-size:13px;font-weight:500;color:#fff}
+.ms-time{font-size:11px;color:var(--text3);margin-top:1px}
+.ms-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.b-done{background:rgba(48,209,88,0.15);color:var(--green)}
+.b-soon{background:rgba(255,159,10,0.15);color:var(--amber)}
+.b-next{background:rgba(255,255,255,0.08);color:var(--text3)}
+
+/* ── Hour log screen ── */
+.hour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 16px 0}
+.hour-card{background:var(--card);border-radius:14px;padding:12px;border:0.5px solid var(--border);cursor:pointer;transition:all 0.2s}
+.hour-card.smoked{border-color:rgba(255,69,58,0.4);background:#1A0808}
+.hour-card.clean{border-color:rgba(48,209,88,0.3);background:#081A0A}
+.hour-card.future{opacity:0.35;cursor:default}
+.hour-time{font-size:16px;font-weight:700;color:#fff;margin-bottom:3px}
+.hour-status{font-size:12px;font-weight:600}
+.hour-card.smoked .hour-status{color:var(--red)}
+.hour-card.clean .hour-status{color:var(--green)}
+.hour-card.future .hour-status{color:var(--text3)}
+.hour-btns{display:flex;gap:6px;margin-top:8px}
+.hour-btn{flex:1;padding:7px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-smoked{background:var(--red-bg);color:var(--red);border:0.5px solid rgba(255,69,58,0.3)}
+.btn-clean{background:var(--green-bg);color:var(--green);border:0.5px solid rgba(48,209,88,0.3)}
+
+/* ── Penalty screen ── */
+.penalty-screen{display:none;background:#0A0A0A;min-height:100vh;padding-bottom:80px}
+.pen-header{background:#1A0808;padding:52px 20px 24px;border-bottom:1px solid rgba(255,69,58,0.3);text-align:center}
+.pen-big-icon{font-size:52px;margin-bottom:10px}
+.pen-title{font-size:26px;font-weight:700;color:var(--red);letter-spacing:-0.5px}
+.pen-sub{font-size:14px;color:var(--text2);margin-top:6px}
+.losses-card{background:#1A0808;border-radius:16px;padding:16px;margin:14px 16px;border:1px solid rgba(255,69,58,0.3)}
+.loss-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:0.5px solid rgba(255,69,58,0.15)}
+.loss-row:last-child{border-bottom:none}
+.loss-name{font-size:14px;color:var(--text2)}
+.loss-val{font-size:14px;font-weight:700;color:var(--red)}
+.motivate-card{background:#081A08;border-radius:16px;padding:18px;margin:0 16px 12px;border:0.5px solid rgba(48,209,88,0.2)}
+.mot-quote{font-size:15px;font-weight:600;color:var(--green);line-height:1.55;text-align:center}
+.mot-sub{font-size:13px;color:var(--text2);text-align:center;margin-top:8px;line-height:1.5}
+.restart-btn{background:var(--green);border-radius:16px;padding:18px;margin:0 16px;text-align:center;cursor:pointer;border:none;width:calc(100% - 32px);font-family:inherit}
+.restart-btn-txt{font-size:17px;font-weight:700;color:#000}
+.restart-btn-sub{font-size:12px;color:rgba(0,0,0,0.6);margin-top:3px}
+
+/* ── Settings screen ── */
+.settings-screen{display:none;padding:52px 16px 0;background:#0A0A0A;min-height:100vh}
+.settings-title{font-size:26px;font-weight:700;color:#fff;margin-bottom:20px}
+.set-card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border:0.5px solid var(--border)}
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.set-row:last-child{border-bottom:none}
+.set-label{font-size:15px;color:#fff}
+.set-sub{font-size:12px;color:var(--text2);margin-top:2px}
+.set-val{font-size:15px;font-weight:600;color:var(--green)}
+.notif-btn{background:var(--green);border-radius:12px;padding:14px;text-align:center;font-size:15px;font-weight:700;color:#000;cursor:pointer;border:none;width:100%;font-family:inherit;margin-bottom:10px}
+.notif-status{text-align:center;font-size:13px;color:var(--text2);margin-bottom:16px}
+.set-card-h{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:12px}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-key{color:var(--text2)}
+.info-val{color:#fff;font-weight:500}
+
+/* ── Nav ── */
+.nav{display:flex;background:#1C1C1E;border-top:0.5px solid var(--border);padding:10px 0 28px;position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;z-index:50}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;font-size:10px;color:var(--text3);font-family:inherit;padding:0}
+.nav-btn.active{color:var(--green)}
+.nav-btn svg{width:24px;height:24px;stroke:currentColor;stroke-width:1.8;fill:none}
+
+/* ── Toast ── */
+.toast{position:fixed;top:60px;left:16px;right:16px;max-width:398px;background:#2C2C2E;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;z-index:200;transform:translateY(-120px);transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);border:0.5px solid var(--border)}
+.toast.show{transform:translateY(0)}
+.toast-icon{font-size:24px;flex-shrink:0}
+.toast-body{flex:1}
+.toast-title{font-size:14px;font-weight:600;color:#fff}
+.toast-sub{font-size:12px;color:var(--text2);margin-top:1px}
+
+/* modal overlay */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#1C1C1E;border-radius:22px 22px 0 0;padding:20px 20px 44px;width:100%;max-width:430px}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--surface);margin:0 auto 16px}
+.modal-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.modal-sub{font-size:14px;color:var(--text2);margin-bottom:18px}
+.modal-btns{display:flex;flex-direction:column;gap:10px}
+.mbtn{padding:16px;border-radius:14px;border:none;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
+.mbtn-smoked{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,69,58,0.3)}
+.mbtn-clean{background:var(--green-bg);color:var(--green);border:1px solid rgba(48,209,88,0.3)}
+.mbtn-cancel{background:var(--card2);color:var(--text2)}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toast-icon">✅</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toast-title"></div>
+    <div class="toast-sub" id="toast-sub"></div>
+  </div>
+</div>
+
+<!-- Hour modal -->
+<div class="modal-overlay" id="hour-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-hour-title">08:00 — 09:00</div>
+    <div class="modal-sub" id="modal-hour-sub">Ты курил в этот час?</div>
+    <div class="modal-btns">
+      <button class="mbtn mbtn-smoked" onclick="logHour(true)">🚬 Да, курил</button>
+      <button class="mbtn mbtn-clean" onclick="logHour(false)">✅ Нет, держался</button>
+      <button class="mbtn mbtn-cancel" onclick="closeModal()">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<div class="app" id="main-screen">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="streak-row">
+      <div class="streak-pill">
+        <span style="font-size:18px">🔥</span>
+        <span class="streak-txt" id="streak-txt">0 дней подряд</span>
+      </div>
+      <div class="record-txt" id="record-txt">Рекорд: 0 дн.</div>
+    </div>
+    <div class="hero">
+      <div class="hero-num" id="hero-num">0</div>
+      <div class="hero-sub" id="hero-sub">дней без срывов</div>
+      <div class="hero-tag" id="hero-tag">Начни прямо сейчас 💪</div>
+    </div>
+  </div>
+
+  <!-- Cigarette counter -->
+  <div class="card" id="cig-card">
+    <div class="cig-top">
+      <div class="card-title" style="margin:0">Сегодня</div>
+      <div class="cig-limit-lbl" id="limit-lbl">Лимит: 20 сиг.</div>
+    </div>
+    <div class="cig-nums">
+      <div class="cig-now" id="cig-now" style="color:var(--green)">0</div>
+      <div class="cig-max" id="cig-max">/ 20</div>
+    </div>
+    <div class="bars" id="bars"></div>
+    <button class="log-btn" id="log-btn" onclick="openLogModal()">+ Записать сигарету</button>
+  </div>
+
+  <!-- Penalty warning -->
+  <div class="card warning" style="margin-top:10px">
+    <div class="card-title">⚡ Что потеряешь при срыве</div>
+    <div class="penalty-row">
+      <div class="pen-icon">🔥</div>
+      <div class="pen-txt">Серия сгорит</div>
+      <div class="pen-val" id="pen-streak">0 дней = 0</div>
+    </div>
+    <div class="penalty-row">
+      <div class="pen-icon">💰</div>
+      <div class="pen-txt">Деньги сгорят</div>
+      <div class="pen-val" id="pen-money">0 сум = 0</div>
+    </div>
+    <div class="penalty-row">
+      <div class="pen-icon">📈</div>
+      <div class="pen-txt">Лимит вырастет</div>
+      <div class="pen-val" id="pen-limit">+3 сигареты</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-lbl">Сэкономлено</div>
+      <div class="stat-val" style="color:var(--green)" id="stat-money">0 сум</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-lbl">Не выкурено</div>
+      <div class="stat-val" style="color:var(--blue)" id="stat-cigs">0 сиг.</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-lbl">Цена сигареты</div>
+      <div class="stat-val" style="color:var(--amber)">1 200 сум</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-lbl">Цель к концу</div>
+      <div class="stat-val" style="color:var(--text2)">0 сиг./день</div>
+    </div>
+  </div>
+
+  <!-- Health -->
+  <div class="health-section">
+    <div class="section-title">Восстановление организма</div>
+    <div id="milestones"></div>
+  </div>
+  <div style="height:20px"></div>
+
+</div>
+
+<!-- Hour log screen -->
+<div id="hour-screen" style="display:none;padding:52px 0 0;background:#0A0A0A;min-height:100vh">
+  <div style="padding:16px 16px 10px;border-bottom:0.5px solid var(--border)">
+    <div style="font-size:22px;font-weight:700;color:#fff;margin-bottom:2px">Почасовой журнал</div>
+    <div style="font-size:13px;color:var(--text2)" id="hour-date-lbl">Сегодня</div>
+  </div>
+  <div style="padding:10px 16px 6px;display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:13px;color:var(--text2)" id="hour-summary">Отмечено: 0 / 0 часов</div>
+    <div style="font-size:13px;font-weight:600;color:var(--red)" id="hour-smoked-count">Выкурено: 0</div>
+  </div>
+  <div class="hour-grid" id="hour-grid"></div>
+</div>
+
+<!-- Penalty screen -->
+<div class="penalty-screen" id="penalty-screen">
+  <div class="pen-header">
+    <div class="pen-big-icon">💔</div>
+    <div class="pen-title">Серия прервана</div>
+    <div class="pen-sub">Ты превысил дневной лимит</div>
+  </div>
+  <div class="losses-card">
+    <div style="font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">🔴 Что сброшено</div>
+    <div class="loss-row"><div class="loss-name">Серия дней</div><div class="loss-val" id="pen-days-lost">— → 0</div></div>
+    <div class="loss-row"><div class="loss-name">Сэкономлено</div><div class="loss-val" id="pen-money-lost">— → 0</div></div>
+    <div class="loss-row"><div class="loss-name">Лимит завтра</div><div class="loss-val" id="pen-limit-new">— → —</div></div>
+  </div>
+  <div class="motivate-card">
+    <div class="mot-quote" id="mot-quote">"Падать не стыдно. Стыдно не подниматься."</div>
+    <div class="mot-sub">Каждый бросающий срывается в среднем 8–11 раз перед победой. Ты не один. Главное — начать снова.</div>
+  </div>
+  <button class="restart-btn" onclick="restart()">
+    <div class="restart-btn-txt">🔄 Начать заново прямо сейчас</div>
+    <div class="restart-btn-sub">Новая серия начнётся с этой минуты</div>
+  </button>
+</div>
+
+<!-- Settings screen -->
+<div class="settings-screen" id="settings-screen">
+  <div class="settings-title">Настройки</div>
+
+  <button class="notif-btn" onclick="requestNotif()">🔔 Включить напоминания</button>
+  <div class="notif-status" id="notif-status">Напоминания каждый час с 08:00 до 23:00</div>
+
+  <div class="set-card">
+    <div class="set-card-h">Мой план</div>
+    <div class="set-row">
+      <div><div class="set-label">Начальный лимит</div><div class="set-sub">Сигарет в день</div></div>
+      <div class="set-val" id="set-start-limit">20</div>
+    </div>
+    <div class="set-row">
+      <div><div class="set-label">Текущий лимит</div><div class="set-sub">На сегодня</div></div>
+      <div class="set-val" id="set-cur-limit">20</div>
+    </div>
+    <div class="set-row">
+      <div><div class="set-label">Снижение</div><div class="set-sub">Каждые 2 недели</div></div>
+      <div class="set-val">−5 сиг.</div>
+    </div>
+  </div>
+
+  <div class="set-card">
+    <div class="set-card-h">Финансы</div>
+    <div class="info-row"><div class="info-key">Цена пачки</div><div class="info-val">24 000 сум</div></div>
+    <div class="info-row"><div class="info-key">Цена сигареты</div><div class="info-val">1 200 сум</div></div>
+    <div class="info-row"><div class="info-key">В месяц на курение</div><div class="info-val">720 000 сум</div></div>
+  </div>
+
+  <div class="set-card" style="margin-bottom:20px">
+    <div class="set-card-h">О приложении</div>
+    <div style="font-size:14px;color:var(--text2);line-height:1.6">Добавьте страницу на главный экран iPhone: нажмите <b style="color:#fff">Поделиться → На экран "Домой"</b> в Safari. Тогда уведомления будут работать в фоне.</div>
+  </div>
+</div>
+
+<!-- Nav -->
+<div class="nav">
+  <button class="nav-btn active" id="nav-home" onclick="showScreen('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная
+  </button>
+  <button class="nav-btn" id="nav-hours" onclick="showScreen('hours')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Журнал
+  </button>
+  <button class="nav-btn" id="nav-settings" onclick="showScreen('settings')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки
+  </button>
+</div>
+
+<script>
+const PRICE_PACK=24000,PRICE_CIG=1200,PACK_SIZE=20;
+const QUOTES=[
+  '"Падать не стыдно. Стыдно не подниматься."',
+  '"Каждый новый день — это шанс стать лучше вчерашнего."',
+  '"Сила воли — мышца. Чем больше тренируешь, тем сильнее."',
+  '"Ты уже доказал что можешь. Докажи снова."',
+  '"Срыв — это не конец пути, а часть пути."'
+];
+const MILESTONES=[
+  {name:'Давление нормализовалось',minutes:20},
+  {name:'CO в крови очищен',minutes:720},
+  {name:'Риск инфаркта снижается',minutes:1440},
+  {name:'Вкус и запах вернутся',minutes:2880},
+  {name:'Лёгкие начнут очищаться',minutes:10080},
+  {name:'Риск рака лёгких снизится вдвое',minutes:525600},
+];
+const HOURS=Array.from({length:16},(_,i)=>i+8);
+
+let data=JSON.parse(localStorage.getItem('quit_v1')||'{}');
+
+function init(){
+  if(!data.startDate){
+    data={
+      startDate:new Date().toISOString(),
+      streak:0,record:0,
+      todaySmoked:0,
+      currentLimit:20,
+      baseLimit:20,
+      weekStart:new Date().toISOString(),
+      hourLog:{},
+      totalSaved:0,
+      totalNotSmoked:0
+    };
+    save();
+  }
+  checkDayReset();
+  checkWeeklyReduction();
+  render();
+}
+
+function save(){localStorage.setItem('quit_v1',JSON.stringify(data))}
+
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+
+function checkDayReset(){
+  const today=todayKey();
+  if(data.lastDay&&data.lastDay!==today){
+    const wasOver=data.todaySmoked>data.currentLimit;
+    if(wasOver){
+      triggerPenalty(true);
+    } else {
+      data.streak++;
+      if(data.streak>data.record)data.record=data.streak;
+    }
+    data.todaySmoked=0;
+  }
+  data.lastDay=today;
+  save();
+}
+
+function checkWeeklyReduction(){
+  if(!data.weekStart)return;
+  const start=new Date(data.weekStart);
+  const now=new Date();
+  const weeks=Math.floor((now-start)/(7*24*60*60*1000));
+  const newLimit=Math.max(0,data.baseLimit-weeks*3);
+  data.currentLimit=newLimit;
+  save();
+}
+
+function formatMoney(n){
+  if(n>=1000000)return(n/1000000).toFixed(1)+' млн сум';
+  if(n>=1000)return Math.round(n/1000)+' тыс. сум';
+  return n+' сум';
+}
+
+function minutesSinceStart(){
+  return(new Date()-new Date(data.startDate))/60000;
+}
+
+function render(){
+  const mins=minutesSinceStart();
+  const days=Math.floor(mins/1440);
+  const hours=Math.floor((mins%1440)/60);
+  const secs=Math.floor((mins%60));
+
+  document.getElementById('hero-num').textContent=days;
+  document.getElementById('hero-sub').textContent=`дней · ${hours} ч · ${secs} мин`;
+
+  const tags=['Начни прямо сейчас 💪','Ты справляешься! 💪','Отличная работа! 🔥','Ты — машина! 🏆','Легенда! 🌟'];
+  document.getElementById('hero-tag').textContent=tags[Math.min(Math.floor(days/3),tags.length-1)];
+
+  const streak=data.streak||0;
+  document.getElementById('streak-txt').textContent=streak+' '+(streak===1?'день':streak<5?'дня':'дней')+' подряд';
+  document.getElementById('record-txt').textContent='Рекорд: '+data.record+' дн.';
+
+  const smoked=data.todaySmoked||0;
+  const limit=data.currentLimit||20;
+  const isOver=smoked>limit;
+  const nowEl=document.getElementById('cig-now');
+  nowEl.textContent=smoked;
+  nowEl.style.color=isOver?'var(--red)':smoked>=limit*0.8?'var(--amber)':'var(--green)';
+  document.getElementById('cig-max').textContent='/ '+limit;
+  document.getElementById('limit-lbl').textContent='Лимит: '+limit+' сиг.';
+  document.getElementById('set-cur-limit').textContent=limit;
+  document.getElementById('set-start-limit').textContent=data.baseLimit;
+
+  const logBtn=document.getElementById('log-btn');
+  if(isOver){logBtn.textContent='⚠️ Лимит превышен!';logBtn.className='log-btn disabled';}
+  else{logBtn.textContent='+ Записать сигарету';logBtn.className='log-btn';}
+
+  const bars=document.getElementById('bars');
+  bars.innerHTML='';
+  for(let i=0;i<limit;i++){
+    const b=document.createElement('div');
+    b.className='bar'+(i<smoked?' smoked':' free');
+    bars.appendChild(b);
+  }
+  for(let i=0;i<Math.max(0,smoked-limit);i++){
+    const b=document.createElement('div');b.className='bar over';bars.appendChild(b);
+  }
+
+  const notSmoked=Math.max(0,Math.floor(mins/((24/limit)))-smoked);
+  const saved=notSmoked*PRICE_CIG;
+  document.getElementById('stat-money').textContent=formatMoney(saved);
+  document.getElementById('stat-cigs').textContent=notSmoked+' сиг.';
+
+  document.getElementById('pen-streak').textContent=streak+' дн. → 0';
+  document.getElementById('pen-money').textContent=formatMoney(saved)+' → 0';
+  document.getElementById('pen-limit').textContent='→ '+(limit+3)+' сигарет';
+
+  const ms=document.getElementById('milestones');
+  ms.innerHTML=MILESTONES.map(m=>{
+    const done=mins>=m.minutes;
+    const soon=!done&&mins>=m.minutes*0.8;
+    return`<div class="milestone">
+      <div class="ms-dot" style="background:${done?'var(--green)':soon?'var(--amber)':'var(--surface)'}"></div>
+      <div class="ms-info"><div class="ms-name">${m.name}</div><div class="ms-time">${formatTime(m.minutes)}</div></div>
+      <div class="ms-badge ${done?'b-done':soon?'b-soon':'b-next'}">${done?'✓ готово':soon?'скоро':'впереди'}</div>
+    </div>`;
+  }).join('');
+
+  renderHours();
+}
+
+function formatTime(mins){
+  if(mins<60)return mins+' мин';
+  if(mins<1440)return Math.round(mins/60)+' ч';
+  if(mins<10080)return Math.round(mins/1440)+' дн.';
+  if(mins<43200)return Math.round(mins/10080)+' нед.';
+  return Math.round(mins/43200)+' мес.';
+}
+
+function renderHours(){
+  const today=todayKey();
+  const log=data.hourLog[today]||{};
+  const nowHour=new Date().getHours();
+  const answered=Object.keys(log).length;
+  const smoked=Object.values(log).filter(Boolean).length;
+  document.getElementById('hour-summary').textContent=`Отмечено: ${answered} / ${HOURS.filter(h=>h<=nowHour).length} часов`;
+  document.getElementById('hour-smoked-count').textContent=`Выкурено: ${smoked}`;
+  document.getElementById('hour-date-lbl').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+
+  const grid=document.getElementById('hour-grid');
+  grid.innerHTML=HOURS.map(h=>{
+    const key=String(h);
+    const logged=key in log;
+    const smokedH=log[key];
+    const isFuture=h>nowHour;
+    const isCurrent=h===nowHour;
+    let cls='hour-card',statusTxt='',btns='';
+    if(isFuture){cls+=' future';statusTxt='Ещё не наступил';}
+    else if(logged){cls+=smokedH?' smoked':' clean';statusTxt=smokedH?'🚬 Курил':'✅ Держался';}
+    else{statusTxt=isCurrent?'⏱ Сейчас':'Не отмечено';btns=`<div class="hour-btns"><button class="hour-btn btn-smoked" onclick="quickLog(${h},true)">🚬 Да</button><button class="hour-btn btn-clean" onclick="quickLog(${h},false)">✅ Нет</button></div>`;}
+    return`<div class="${cls}" onclick="${!isFuture&&!logged?`openHourModal(${h})`:''}">
+      <div class="hour-time">${String(h).padStart(2,'0')}:00</div>
+      <div class="hour-status">${statusTxt}</div>
+      ${btns}
+    </div>`;
+  }).join('');
+}
+
+let pendingHour=null;
+function openHourModal(h){
+  pendingHour=h;
+  document.getElementById('modal-hour-title').textContent=`${String(h).padStart(2,'0')}:00 — ${String(h+1).padStart(2,'0')}:00`;
+  document.getElementById('modal-hour-sub').textContent='Ты курил в этот час?';
+  document.getElementById('hour-modal').classList.add('open');
+}
+function closeModal(){document.getElementById('hour-modal').classList.remove('open')}
+
+function logHour(smoked){
+  if(pendingHour===null)return;
+  saveHourLog(pendingHour,smoked);
+  closeModal();
+}
+
+function quickLog(h,smoked){event.stopPropagation();saveHourLog(h,smoked);}
+
+function saveHourLog(h,smoked){
+  const today=todayKey();
+  if(!data.hourLog[today])data.hourLog[today]={};
+  data.hourLog[today][String(h)]=smoked;
+  if(smoked){
+    data.todaySmoked=(data.todaySmoked||0)+1;
+    if(data.todaySmoked>data.currentLimit){
+      save();render();
+      setTimeout(()=>triggerPenalty(false),300);
+      return;
+    }
+    showToast('🚬','Записано',`Час ${String(h).padStart(2,'0')}:00 — курил. Осталось ${data.currentLimit-data.todaySmoked} из ${data.currentLimit}`);
+  } else {
+    showToast('✅','Молодец!',`Час ${String(h).padStart(2,'0')}:00 — держался! Так держать 💪`);
+  }
+  save();render();
+}
+
+function openLogModal(){
+  if((data.todaySmoked||0)>=data.currentLimit)return;
+  const h=new Date().getHours();
+  openHourModal(h);
+}
+
+function triggerPenalty(isNewDay){
+  const streak=data.streak||0;
+  const limit=data.currentLimit||20;
+  const mins=minutesSinceStart();
+  const notSmoked=Math.max(0,Math.floor(mins/((24/limit)))-data.todaySmoked);
+  const saved=notSmoked*PRICE_CIG;
+  document.getElementById('pen-days-lost').textContent=streak+' дн. → 0';
+  document.getElementById('pen-money-lost').textContent=formatMoney(saved)+' → 0';
+  document.getElementById('pen-limit-new').textContent=limit+' → '+(limit+3)+' сиг.';
+  document.getElementById('mot-quote').textContent=QUOTES[Math.floor(Math.random()*QUOTES.length)];
+  data.streak=0;
+  data.currentLimit=Math.min(20,limit+3);
+  save();
+  document.getElementById('main-screen').style.display='none';
+  document.getElementById('hour-screen').style.display='none';
+  document.getElementById('settings-screen').style.display='none';
+  document.getElementById('penalty-screen').style.display='block';
+}
+
+function restart(){
+  data.startDate=new Date().toISOString();
+  data.todaySmoked=0;
+  data.hourLog={};
+  save();
+  document.getElementById('penalty-screen').style.display='none';
+  showScreen('home');
+  render();
+}
+
+function showToast(icon,title,sub){
+  document.getElementById('toast-icon').textContent=icon;
+  document.getElementById('toast-title').textContent=title;
+  document.getElementById('toast-sub').textContent=sub;
+  const t=document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function showScreen(s){
+  document.getElementById('main-screen').style.display=s==='home'?'block':'none';
+  document.getElementById('hour-screen').style.display=s==='hours'?'block':'none';
+  document.getElementById('settings-screen').style.display=s==='settings'?'block':'none';
+  document.getElementById('penalty-screen').style.display='none';
+  ['home','hours','settings'].forEach(x=>document.getElementById('nav-'+x).classList.toggle('active',s===x));
+  if(s==='hours')renderHours();
+}
+
+/* ── Push notifications ── */
+function requestNotif(){
+  if(!('Notification' in window)&&!('serviceWorker' in navigator)){
+    document.getElementById('notif-status').textContent='❌ Ваш браузер не поддерживает уведомления. Используйте Safari.';
+    return;
+  }
+  Notification.requestPermission().then(p=>{
+    const el=document.getElementById('notif-status');
+    if(p==='granted'){
+      el.textContent='✅ Уведомления включены! Напоминания будут приходить каждый час с 08:00 до 23:00.';
+      scheduleHourlyReminders();
+    } else {
+      el.textContent='❌ Уведомления отклонены. Разрешите в Настройках → Safari → Уведомления.';
+    }
+  });
+}
+
+function scheduleHourlyReminders(){
+  if(Notification.permission!=='granted')return;
+  const now=new Date();
+  const h=now.getHours();
+  if(h>=8&&h<23){
+    const today=todayKey();
+    const log=data.hourLog[today]||{};
+    if(!(String(h) in log)){
+      new Notification('Бросаю курить 🚬',{
+        body:`Час ${String(h).padStart(2,'0')}:00 — ты курил? Открой приложение и отметь.`,
+        icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🚭</text></svg>'
+      });
+    }
+  }
+  const msToNextHour=3600000-(now.getMinutes()*60000+now.getSeconds()*1000+now.getMilliseconds());
+  setTimeout(scheduleHourlyReminders,msToNextHour);
+}
+
+init();
+setInterval(render,30000);
+if(Notification.permission==='granted')scheduleHourlyReminders();
+</script>
+</body>
+</html>
