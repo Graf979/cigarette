@@ -1612,18 +1612,21 @@ function closeAchieve(){document.getElementById('achieve-popup').classList.remov
 /* ── Splash screen ── */
 function hideSplash(){
   const splash=document.getElementById('splash');
-  if(splash){splash.classList.add('hidden');setTimeout(()=>splash.remove(),600);}
+  if(splash){
+    splash.style.opacity='0';
+    splash.style.transition='opacity 0.4s ease';
+    setTimeout(()=>{try{splash.remove()}catch(e){}},500);
+  }
 }
 
 checkRoomInvite();
+// Always hide splash after 1.5s
+setTimeout(hideSplash, 1500);
 if(d.name&&d.code){
   document.getElementById('ob-screen').style.display='none';
   document.getElementById('main-app').style.display='block';
   checkDayReset();checkWeeklyReduction();render();updateLB();
   if(Notification.permission==='granted')scheduleNotifs();
-  setTimeout(hideSplash,1500);
-} else {
-  setTimeout(hideSplash,1500);
 }
 setInterval(()=>{if(d.name)render();},30000);
 // Only refresh LB when tab is visible
