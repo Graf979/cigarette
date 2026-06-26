@@ -20,8 +20,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
   --t2:#AEAEB2;--t3:#636366;--surf:#3A3A3C
 }
 .app{min-height:100vh;background:#0A0A0A;padding-bottom:80px}
-
-/* ── Onboarding ── */
 .ob{display:flex;flex-direction:column;min-height:100vh;padding:60px 24px 40px;background:#0A0A0A}
 .ob-icon{font-size:64px;text-align:center;margin-bottom:20px}
 .ob-title{font-size:28px;font-weight:700;color:#fff;text-align:center;letter-spacing:-0.5px;margin-bottom:8px}
@@ -37,28 +35,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .div-line{flex:1;height:0.5px;background:var(--border)}
 .div-txt{font-size:12px;color:var(--t3)}
 .code-card{background:var(--card);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(48,209,88,0.3)}
-.code-val{font-size:36px;font-weight:700;color:var(--g);letter-spacing:6px;margin:8px 0 4px}
-
-/* ── Header ── */
+.code-val{font-size:28px;font-weight:700;color:var(--g);letter-spacing:4px;margin:8px 0 4px;word-break:break-all}
 .hdr{background:#0A0A0A;padding:52px 18px 14px;border-bottom:0.5px solid var(--border)}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.hdr-left{flex:1}
 .hdr-greet{font-size:12px;color:var(--t3);margin-bottom:2px}
 .hdr-name{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px}
-.hdr-right{display:flex;align-items:center;gap:8px}
+.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .streak-pill{display:flex;align-items:center;gap:5px;background:var(--ab);border-radius:20px;padding:5px 11px;border:0.5px solid rgba(255,159,10,0.25)}
 .streak-txt{font-size:12px;font-weight:700;color:var(--a)}
-.set-ico{width:32px;height:32px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;border:0.5px solid var(--border);cursor:pointer}
+.set-btn{width:36px;height:36px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;border:0.5px solid var(--border);cursor:pointer;flex-shrink:0}
 .ring-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:4px}
 .ring-tag{font-size:13px;font-weight:600;color:var(--g);margin-top:6px}
-
-/* ── Cards ── */
 .card{background:var(--card);border-radius:16px;padding:14px;margin:10px 16px 0;border:0.5px solid var(--border)}
-.card.warn{border-color:rgba(255,159,10,0.25);background:#0F0A00}
-.card.danger{background:#0A0008}
-.card.crisis{background:#081A08;border-color:rgba(48,209,88,0.2)}
-.clbl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
-
-/* ── Day goal ── */
 .goal-card{background:#081A08;border-radius:14px;padding:13px;margin:10px 16px 0;border:0.5px solid rgba(48,209,88,0.2)}
 .goal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
 .goal-lbl{font-size:13px;font-weight:600;color:var(--g)}
@@ -66,8 +55,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .goal-bar-wrap{height:5px;background:#0F2C0F;border-radius:3px;margin-bottom:6px}
 .goal-bar{height:5px;border-radius:3px;background:var(--g);transition:width 0.6s ease}
 .goal-sub{font-size:12px;color:var(--t3)}
-
-/* ── Counter ── */
 .cig-card{background:var(--card);border-radius:14px;padding:14px;margin:10px 16px 0;border:0.5px solid var(--border)}
 .cig-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
 .cig-num-row{display:flex;align-items:baseline;gap:5px}
@@ -77,44 +64,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .cig-lim{font-size:12px;font-weight:600;color:var(--a);margin-bottom:6px}
 .mini-bars{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:90px}
 .mbar{width:10px;height:10px;border-radius:2px;background:var(--surf)}
-.mbar.s{background:var(--r)}
-.mbar.f{background:var(--g)}
+.mbar.s{background:var(--r)}.mbar.f{background:var(--g)}
 .cig-btns{display:flex;gap:8px;margin-top:12px}
 .btn-log{flex:2;background:var(--g);border-radius:11px;padding:13px;text-align:center;font-size:14px;font-weight:700;color:#000;cursor:pointer;border:none;font-family:inherit}
 .btn-log.over{background:var(--surf);color:var(--t3)}
 .btn-help{flex:1;background:var(--card2);border-radius:11px;padding:13px;text-align:center;font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;border:none;font-family:inherit}
-
-/* ── Penalty mini ── */
-.pen-mini{display:flex;gap:0;margin:10px 16px 0;background:#1A1008;border-radius:13px;padding:12px 14px;border:0.5px solid rgba(255,159,10,0.2)}
+.pen-mini{display:flex;margin:10px 16px 0;background:#1A1008;border-radius:13px;padding:12px 14px;border:0.5px solid rgba(255,159,10,0.2)}
 .pen-item{flex:1;text-align:center}
 .pen-item+.pen-item{border-left:0.5px solid rgba(255,255,255,0.06)}
 .pen-val{font-size:16px;font-weight:700;color:var(--r)}
 .pen-lbl{font-size:10px;color:var(--t3);margin-top:2px}
 .pen-title{font-size:11px;font-weight:600;color:var(--a);margin-bottom:8px}
-
-/* ── Quote ── */
 .quote-card{background:var(--card);border-radius:14px;padding:14px;margin:10px 16px 14px;border:0.5px solid var(--border)}
 .quote-txt{font-size:13px;color:var(--t2);line-height:1.6;font-style:italic}
-
-/* ── Stats screen ── */
-.stats-scr{display:none;padding:52px 0 0;background:#0A0A0A;min-height:100vh}
+.stats-scr,.lb-scr,.jour-scr,.set-scr{display:none;padding:52px 0 0;background:#0A0A0A;min-height:100vh}
 .scr-hdr{padding:16px 16px 12px;border-bottom:0.5px solid var(--border)}
 .scr-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px}
-
-/* chart */
 .chart-card{background:var(--card);border-radius:14px;padding:14px;margin:12px 16px 0;border:0.5px solid var(--border)}
 .chart-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .chart-title{font-size:13px;font-weight:600;color:#fff}
-.chart-trend{font-size:12px;font-weight:600;color:var(--g)}
+.chart-trend{font-size:12px;font-weight:600}
 .chart-bars{display:flex;align-items:flex-end;gap:5px;height:72px;margin-bottom:6px}
 .cbar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
-.cbar{width:100%;border-radius:3px 3px 0 0;min-height:2px;transition:height 0.5s ease}
-.cbar-lbl{font-size:9px;color:var(--t3)}
-.cbar-lbl.today{color:var(--g)}
-.chart-info{display:flex;justify-content:space-between;padding-top:8px;border-top:0.5px solid var(--border);margin-top:2px}
+.cbar{width:100%;border-radius:3px 3px 0 0;min-height:2px}
+.cbar-lbl{font-size:9px;color:var(--t3)}.cbar-lbl.today{color:var(--g)}
+.chart-info{display:flex;justify-content:space-between;padding-top:8px;border-top:0.5px solid var(--border)}
 .chart-info-item{font-size:11px;color:var(--t3)}
-
-/* plan */
 .plan-card{background:var(--card);border-radius:14px;padding:14px;margin:10px 16px 0;border:0.5px solid var(--border)}
 .plan-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .plan-edit{font-size:12px;font-weight:600;color:var(--b);cursor:pointer}
@@ -126,8 +101,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .plan-stat{flex:1;background:#0A0A0A;border-radius:10px;padding:9px;text-align:center}
 .plan-stat-val{font-size:14px;font-weight:700;color:#fff}
 .plan-stat-lbl{font-size:10px;color:var(--t3);margin-top:1px}
-
-/* history */
 .hist-card{background:var(--card);border-radius:14px;padding:14px;margin:10px 16px 14px;border:0.5px solid var(--border)}
 .hist-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)}
 .hist-item:last-child{border-bottom:none}
@@ -138,12 +111,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .pattern-box{background:#1A1008;border-radius:10px;padding:10px;border:0.5px solid rgba(255,159,10,0.2);margin-top:10px}
 .pattern-lbl{font-size:11px;font-weight:600;color:var(--a);margin-bottom:3px}
 .pattern-txt{font-size:11px;color:var(--t2)}
-
-/* ── Leaderboard ── */
-.lb-scr{display:none;padding:52px 0 0;background:#0A0A0A;min-height:100vh}
-.lb-inv{background:var(--card);border-radius:14px;padding:14px;margin:12px 16px 0;border:0.5px solid var(--border);text-align:center}
-.lb-code{font-size:26px;font-weight:700;color:var(--g);letter-spacing:4px;margin:6px 0 8px}
-.lb-copy{background:var(--card2);border-radius:10px;padding:9px;font-size:12px;font-weight:600;color:var(--t2);border:0.5px solid var(--border);width:100%;cursor:pointer;font-family:inherit}
+.lb-inv{background:var(--card);border-radius:14px;padding:16px;margin:12px 16px 0;border:0.5px solid var(--border)}
+.lb-inv-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.lb-inv-sub{font-size:12px;color:var(--t2);margin-bottom:10px}
+.lb-link{background:#081A08;border-radius:10px;padding:10px 12px;font-size:12px;color:var(--g);word-break:break-all;margin-bottom:8px;border:0.5px solid rgba(48,209,88,0.2)}
+.lb-copy{background:var(--g);border-radius:10px;padding:10px;font-size:13px;font-weight:700;color:#000;border:none;width:100%;cursor:pointer;font-family:inherit}
 .lb-list{padding:8px 16px}
 .lb-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:0.5px solid var(--border)}
 .lb-item:last-child{border-bottom:none}
@@ -156,9 +128,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .lb-score{text-align:right;flex-shrink:0}
 .lb-num{font-size:20px;font-weight:700;color:var(--g)}
 .lb-unit{font-size:10px;color:var(--t3)}
-
-/* ── Journal ── */
-.jour-scr{display:none;padding:52px 0 0;background:#0A0A0A;min-height:100vh}
 .hour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 16px}
 .hcard{background:var(--card);border-radius:13px;padding:12px;border:0.5px solid var(--border);cursor:pointer}
 .hcard.smk{border-color:rgba(255,69,58,0.4);background:#1A0808}
@@ -166,17 +135,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .hcard.fut{opacity:0.35;cursor:default}
 .htime{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
 .hstatus{font-size:12px;font-weight:600}
-.hcard.smk .hstatus{color:var(--r)}
-.hcard.cln .hstatus{color:var(--g)}
-.hcard.fut .hstatus{color:var(--t3)}
+.hcard.smk .hstatus{color:var(--r)}.hcard.cln .hstatus{color:var(--g)}.hcard.fut .hstatus{color:var(--t3)}
 .hbtns{display:flex;gap:5px;margin-top:8px}
 .hbtn{flex:1;padding:7px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
 .hbtn-s{background:var(--rb);color:var(--r);border:0.5px solid rgba(255,69,58,0.3)}
 .hbtn-c{background:var(--gb);color:var(--g);border:0.5px solid rgba(48,209,88,0.3)}
-
-/* ── Settings ── */
-.set-scr{display:none;padding:52px 16px 20px;background:#0A0A0A;min-height:100vh}
-.set-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:20px}
+.set-scr{padding:52px 16px 20px}
+.set-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:20px}
 .set-sec-lbl{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 6px}
 .set-card{background:var(--card);border-radius:14px;overflow:hidden;border:0.5px solid var(--border);margin-bottom:4px}
 .set-row{display:flex;align-items:center;padding:13px 14px;border-bottom:0.5px solid var(--border);cursor:pointer}
@@ -190,15 +155,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .chev{width:7px;height:12px;border-right:1.5px solid var(--t3);border-top:1.5px solid var(--t3);transform:rotate(45deg)}
 .toggle{width:44px;height:26px;border-radius:13px;background:var(--g);position:relative;cursor:pointer;flex-shrink:0;transition:background 0.2s}
 .toggle-dot{width:22px;height:22px;border-radius:50%;background:#fff;position:absolute;top:2px;right:2px;transition:all 0.2s}
-.toggle.off{background:var(--surf)}
-.toggle.off .toggle-dot{right:auto;left:2px}
+.toggle.off{background:var(--surf)}.toggle.off .toggle-dot{right:auto;left:2px}
 .av-row{display:flex;align-items:center;padding:14px;border-bottom:0.5px solid var(--border)}
 .av-circle{width:50px;height:50px;border-radius:50%;background:var(--gb);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:2px solid rgba(48,209,88,0.3)}
 .av-info{flex:1;margin-left:12px}
 .av-name{font-size:16px;font-weight:600;color:#fff}
 .av-sub{font-size:12px;color:var(--t3);margin-top:2px}
 .av-edit{font-size:13px;color:var(--g);font-weight:600;cursor:pointer}
-.freq-row{display:flex;gap:6px;padding:10px 14px;border-bottom:0.5px solid var(--border)}
+.freq-row{display:flex;gap:6px;padding:10px 14px;border-bottom:0.5px solid var(--border);flex-wrap:wrap}
 .fpill{padding:7px 11px;border-radius:20px;font-size:12px;font-weight:600;background:var(--card2);color:var(--t2);border:0.5px solid var(--border);cursor:pointer;font-family:inherit}
 .fpill.sel{background:var(--gb);color:var(--g);border-color:rgba(48,209,88,0.3)}
 .time-set-row{display:flex;align-items:center;padding:11px 14px;border-bottom:0.5px solid var(--border)}
@@ -206,9 +170,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .time-set-lbl{font-size:13px;color:var(--t2);flex:1}
 .time-set-val{font-size:14px;font-weight:600;color:#fff;background:var(--card2);padding:5px 12px;border-radius:8px;border:none;font-family:inherit;cursor:pointer}
 .danger-card{background:#1A0808;border-radius:14px;overflow:hidden;border:0.5px solid rgba(255,69,58,0.2)}
-.set-row-danger{display:flex;align-items:center;padding:13px 14px;cursor:pointer}
-
-/* ── Penalty screen ── */
 .pen-scr{display:none;background:#0A0A0A;min-height:100vh;padding-bottom:80px}
 .pen-hdr{background:#1A0808;padding:52px 20px 24px;border-bottom:1px solid rgba(255,69,58,0.3);text-align:center}
 .pen-big{font-size:52px;margin-bottom:10px}
@@ -217,16 +178,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .losses-card{background:#1A0808;border-radius:16px;padding:16px;margin:14px 16px;border:1px solid rgba(255,69,58,0.3)}
 .loss-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:0.5px solid rgba(255,69,58,0.15)}
 .loss-row:last-child{border-bottom:none}
-.loss-name{font-size:14px;color:var(--t2)}
-.loss-val{font-size:14px;font-weight:700;color:var(--r)}
+.loss-name{font-size:14px;color:var(--t2)}.loss-val{font-size:14px;font-weight:700;color:var(--r)}
 .mot-card{background:#081A08;border-radius:16px;padding:18px;margin:0 16px 12px;border:0.5px solid rgba(48,209,88,0.2)}
 .mot-q{font-size:15px;font-weight:600;color:var(--g);line-height:1.55;text-align:center}
 .mot-s{font-size:13px;color:var(--t2);text-align:center;margin-top:8px;line-height:1.5}
 .restart-btn{background:var(--g);border-radius:16px;padding:18px;margin:0 16px;cursor:pointer;border:none;width:calc(100% - 32px);font-family:inherit;text-align:center}
 .restart-txt{font-size:17px;font-weight:700;color:#000}
 .restart-sub{font-size:12px;color:rgba(0,0,0,0.6);margin-top:3px}
-
-/* ── Crisis screen ── */
 .crisis-scr{display:none;background:#0A0A0A;min-height:100vh;padding-bottom:80px}
 .crisis-hdr{background:#081A08;padding:52px 20px 22px;border-bottom:1px solid rgba(48,209,88,0.2);text-align:center}
 .crisis-title{font-size:22px;font-weight:700;color:var(--g)}
@@ -237,8 +195,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .crisis-name{font-size:14px;font-weight:600;color:#fff}
 .crisis-desc{font-size:12px;color:var(--t2);margin-top:2px}
 .crisis-ok{background:var(--g);border-radius:14px;padding:16px;margin:0 16px;text-align:center;font-size:16px;font-weight:700;color:#000;cursor:pointer;border:none;font-family:inherit}
-
-/* ── Modals ── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:none;align-items:flex-end;justify-content:center}
 .overlay.open{display:flex}
 .modal{background:var(--card);border-radius:22px 22px 0 0;padding:20px 20px 44px;width:100%;max-width:430px;max-height:85vh;overflow-y:auto}
@@ -256,39 +212,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .trig-icon{font-size:22px;margin-bottom:4px}
 .trig-lbl{font-size:13px;font-weight:600;color:var(--t2)}
 .trig-btn.sel .trig-lbl{color:var(--g)}
-
-/* plan modal */
 .plan-adj-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:0.5px solid var(--border)}
 .plan-adj-row:last-child{border-bottom:none}
 .plan-adj-lbl{font-size:14px;color:#fff}
 .plan-adj-ctrl{display:flex;align-items:center;gap:10px}
 .adj-btn{width:30px;height:30px;border-radius:8px;background:var(--card2);border:0.5px solid var(--border);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit;font-weight:700}
 .adj-val{font-size:18px;font-weight:700;color:var(--g);min-width:32px;text-align:center}
-
-/* profile modal */
 .emoji-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0}
 .ep-btn{width:100%;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--border);background:var(--card2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .ep-btn.sel{border-color:var(--g);background:var(--gb)}
-
-/* ── Nav ── */
 .nav{display:flex;background:var(--card);border-top:0.5px solid var(--border);padding:10px 0 28px;position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;z-index:50}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:transparent;cursor:pointer;font-size:10px;color:var(--t3);font-family:inherit;padding:0}
-.nb.act{color:var(--g)}
+.nb.active{color:var(--g)}
 .nb svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none}
-
-/* ── Toast ── */
 .toast{position:fixed;top:60px;left:16px;right:16px;max-width:398px;background:var(--card2);border-radius:16px;padding:13px 15px;display:flex;align-items:center;gap:12px;z-index:200;transform:translateY(-140px);transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);border:0.5px solid var(--border)}
 .toast.show{transform:translateY(0)}
-.toast-icon{font-size:22px;flex-shrink:0}
-.toast-title{font-size:14px;font-weight:600;color:#fff}
-.toast-sub{font-size:12px;color:var(--t2);margin-top:1px}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
 <div class="toast" id="toast">
-  <div class="toast-icon" id="ti"></div>
-  <div><div class="toast-title" id="tt"></div><div class="toast-sub" id="ts"></div></div>
+  <div id="ti" style="font-size:22px;flex-shrink:0"></div>
+  <div><div id="tt" style="font-size:14px;font-weight:600;color:#fff"></div><div id="ts" style="font-size:12px;color:var(--t2);margin-top:1px"></div></div>
 </div>
 
 <!-- Onboarding -->
@@ -301,49 +248,54 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
       <div><label class="flbl">Твоё имя</label><input class="finp" id="inp-name" placeholder="Например: Алишер" maxlength="20"/></div>
       <div><label class="flbl">Эмодзи-аватар</label>
         <div class="emoji-picker" id="ob-emoji">
-          <button class="ep-btn sel" data-e="💪" onclick="selObEmoji(this)">💪</button>
-          <button class="ep-btn" data-e="🔥" onclick="selObEmoji(this)">🔥</button>
-          <button class="ep-btn" data-e="⚡" onclick="selObEmoji(this)">⚡</button>
-          <button class="ep-btn" data-e="🦁" onclick="selObEmoji(this)">🦁</button>
-          <button class="ep-btn" data-e="🏆" onclick="selObEmoji(this)">🏆</button>
-          <button class="ep-btn" data-e="🌟" onclick="selObEmoji(this)">🌟</button>
+          <button class="ep-btn sel" data-e="💪" onclick="selObEmoji(this)" type="button">💪</button>
+          <button class="ep-btn" data-e="🔥" onclick="selObEmoji(this)" type="button">🔥</button>
+          <button class="ep-btn" data-e="⚡" onclick="selObEmoji(this)" type="button">⚡</button>
+          <button class="ep-btn" data-e="🦁" onclick="selObEmoji(this)" type="button">🦁</button>
+          <button class="ep-btn" data-e="🏆" onclick="selObEmoji(this)" type="button">🏆</button>
+          <button class="ep-btn" data-e="🌟" onclick="selObEmoji(this)" type="button">🌟</button>
         </div>
       </div>
-      <button class="btn-g" onclick="createRoom()">🏆 Создать комнату</button>
+      <button class="btn-g" onclick="createRoom()" type="button">🏆 Создать комнату</button>
       <div class="div-row"><div class="div-line"></div><div class="div-txt">или</div><div class="div-line"></div></div>
       <div><label class="flbl">Код комнаты друга</label><input class="finp" id="inp-code" placeholder="Например: ABC123" maxlength="6" style="text-transform:uppercase;letter-spacing:2px"/></div>
-      <button class="btn-d" onclick="joinRoom()">Войти в комнату</button>
+      <button class="btn-d" onclick="joinRoom()" type="button">Войти в комнату</button>
     </div>
   </div>
   <div class="ob" id="ob-created" style="display:none">
     <div class="ob-icon">🎉</div>
     <div class="ob-title">Комната создана!</div>
-    <div class="ob-sub">Отправь этот код друзьям</div>
-    <div class="code-card"><div style="font-size:13px;color:var(--t2)">Код комнаты</div><div class="code-val" id="created-code">------</div><div style="font-size:12px;color:var(--t3)">Скопируй и отправь в Telegram или WhatsApp</div></div>
+    <div class="ob-sub">Отправь эту ссылку друзьям — они нажмут и сразу войдут</div>
+    <div class="code-card">
+      <div style="font-size:13px;color:var(--t2);margin-bottom:6px">Ссылка для друзей</div>
+      <div class="code-val" id="created-link">...</div>
+      <div style="font-size:11px;color:var(--t3);margin-top:6px">Друг нажимает ссылку → вводит имя → сразу в комнате</div>
+    </div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:auto">
-      <button class="btn-g" onclick="copyCode()">📋 Скопировать код</button>
-      <button class="btn-d" onclick="startApp()">Начать →</button>
+      <button class="btn-g" onclick="shareLink()" type="button">📤 Поделиться ссылкой</button>
+      <button class="btn-d" onclick="startApp()" type="button">Начать →</button>
     </div>
   </div>
 </div>
 
 <!-- Main app -->
 <div id="main-app" style="display:none">
-
-  <!-- Home -->
   <div class="app" id="home-scr">
     <div class="hdr">
       <div class="hdr-top">
-        <div><div class="hdr-greet" id="greet">Доброе утро</div><div class="hdr-name" id="hdr-name">...</div></div>
+        <div class="hdr-left">
+          <div class="hdr-greet" id="greet">Доброе утро</div>
+          <div class="hdr-name" id="hdr-name">...</div>
+        </div>
         <div class="hdr-right">
           <div class="streak-pill"><span style="font-size:16px">🔥</span><span class="streak-txt" id="streak-txt">0 дней</span></div>
-          <div class="set-ico" onclick="showScreen('settings')">
-            <svg width="16" height="16" viewBox="0 0 24 24" stroke="#8E8E93" stroke-width="2" fill="none"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 6.34l-.7-.7M18.36 18.36l-.7-.7M17.66 6.34l.7-.7M5.64 18.36l.7-.7"/></svg>
-          </div>
+          <button class="set-btn" onclick="showScreen('settings')" type="button" aria-label="Настройки">
+            <svg width="18" height="18" viewBox="0 0 24 24" stroke="#AEAEB2" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
         </div>
       </div>
       <div class="ring-wrap">
-        <svg id="ring-svg" width="150" height="150" viewBox="0 0 150 150">
+        <svg width="150" height="150" viewBox="0 0 150 150">
           <circle cx="75" cy="75" r="62" fill="none" stroke="#1C1C1E" stroke-width="10"/>
           <circle id="ring-fill" cx="75" cy="75" r="62" fill="none" stroke="#30D158" stroke-width="10"
             stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"
@@ -365,26 +317,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     </div>
     <div class="cig-card">
       <div class="cig-top">
-        <div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Выкурено сегодня</div>
+        <div>
+          <div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Выкурено сегодня</div>
           <div class="cig-num-row"><span class="cig-num" id="cig-num" style="color:var(--g)">0</span><span class="cig-denom" id="cig-denom">/ 20</span></div>
         </div>
         <div class="cig-right"><div class="cig-lim" id="cig-lim">Лимит: 20</div><div class="mini-bars" id="mini-bars"></div></div>
       </div>
       <div class="cig-btns">
-        <button class="btn-log" id="log-btn" onclick="openTriggerModal()">+ Записать сигарету</button>
-        <button class="btn-help" onclick="showCrisis()">🆘 Помощь</button>
+        <button class="btn-log" id="log-btn" onclick="openTriggerModal()" type="button">+ Записать сигарету</button>
+        <button class="btn-help" onclick="showCrisis()" type="button">🆘 Помощь</button>
       </div>
     </div>
-    <div class="pen-mini" id="pen-mini">
-      <div style="width:100%"><div class="pen-title">⚡ При срыве потеряешь</div>
-        <div style="display:flex"><div class="pen-item"><div class="pen-val" id="pm-days">0 дн.</div><div class="pen-lbl">серия</div></div>
-        <div class="pen-item"><div class="pen-val" id="pm-money">0</div><div class="pen-lbl">сум</div></div>
-        <div class="pen-item"><div class="pen-val" id="pm-lim">+3</div><div class="pen-lbl">к лимиту</div></div></div>
+    <div class="pen-mini">
+      <div style="width:100%">
+        <div class="pen-title">⚡ При срыве потеряешь</div>
+        <div style="display:flex">
+          <div class="pen-item"><div class="pen-val" id="pm-days">0 дн.</div><div class="pen-lbl">серия</div></div>
+          <div class="pen-item"><div class="pen-val" id="pm-money">0</div><div class="pen-lbl">сум</div></div>
+          <div class="pen-item"><div class="pen-val" id="pm-lim">+3</div><div class="pen-lbl">к лимиту</div></div>
+        </div>
       </div>
     </div>
-    <div class="quote-card" id="quote-card">
-      <div class="quote-txt" id="quote-txt"></div>
-    </div>
+    <div class="quote-card" id="quote-card"><div class="quote-txt" id="quote-txt"></div></div>
     <div style="height:10px"></div>
   </div>
 
@@ -394,10 +348,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="chart-card">
       <div class="chart-top"><div class="chart-title">График за неделю</div><div class="chart-trend" id="chart-trend">—</div></div>
       <div class="chart-bars" id="chart-bars"></div>
-      <div class="chart-info">
-        <div class="chart-info-item" id="chart-best">Лучший: —</div>
-        <div class="chart-info-item" id="chart-lim-lbl">Лимит: —</div>
-      </div>
+      <div class="chart-info"><div class="chart-info-item" id="chart-best">—</div><div class="chart-info-item" id="chart-lim-lbl">—</div></div>
     </div>
     <div class="plan-card">
       <div class="plan-top"><div style="font-size:13px;font-weight:600;color:#fff">Мой план</div><div class="plan-edit" onclick="openPlanModal()">Изменить</div></div>
@@ -421,8 +372,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
   <!-- Leaderboard -->
   <div class="lb-scr" id="lb-scr">
     <div class="scr-hdr"><div class="scr-title">🏆 Рейтинг</div><div style="font-size:13px;color:var(--t2);margin-top:2px" id="lb-room-lbl">Комната: ——</div></div>
-    <div class="lb-inv"><div style="font-size:13px;font-weight:600;color:#fff;margin-bottom:2px">Пригласи друзей</div><div style="font-size:12px;color:var(--t2);margin-bottom:6px">Отправь им код комнаты</div><div class="lb-code" id="lb-code">——</div><button class="lb-copy" onclick="copyCode()">📋 Скопировать код</button></div>
-    <div class="lb-list" id="lb-list"><div style="text-align:center;padding:30px;color:var(--t3)">Загружаем...</div></div>
+    <div class="lb-inv">
+      <div class="lb-inv-title">Пригласи друзей</div>
+      <div class="lb-inv-sub">Они нажмут ссылку и сразу войдут в комнату</div>
+      <div class="lb-link" id="lb-link-show">—</div>
+      <button class="lb-copy" onclick="shareLink()" type="button">📤 Поделиться ссылкой</button>
+    </div>
+    <div class="lb-list" id="lb-list"><div style="text-align:center;padding:30px;color:var(--t3)">Загружаем... <span class="spinner"></span></div></div>
   </div>
 
   <!-- Journal -->
@@ -461,9 +417,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
       <div class="time-set-row"><div class="time-set-lbl">Начало</div><input type="time" class="time-set-val" id="notif-start" value="08:00" onchange="saveSettings()"/></div>
       <div class="time-set-row"><div class="time-set-lbl">Конец</div><input type="time" class="time-set-val" id="notif-end" value="23:00" onchange="saveSettings()"/></div>
       <div class="freq-row">
-        <button class="fpill sel" data-f="1" onclick="selFreq(this)">Каждый час</button>
-        <button class="fpill" data-f="2" onclick="selFreq(this)">Каждые 2 ч</button>
-        <button class="fpill" data-f="0" onclick="selFreq(this)">Утро и вечер</button>
+        <button class="fpill sel" data-f="1" onclick="selFreq(this)" type="button">Каждый час</button>
+        <button class="fpill" data-f="2" onclick="selFreq(this)" type="button">Каждые 2 ч</button>
+        <button class="fpill" data-f="0" onclick="selFreq(this)" type="button">Утро и вечер</button>
       </div>
     </div>
     <div class="set-sec-lbl">Главный экран</div>
@@ -481,10 +437,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     </div>
     <div class="set-sec-lbl">Комната</div>
     <div class="set-card">
-      <div class="set-row" onclick="copyCode()">
+      <div class="set-row" onclick="shareLink()">
         <div class="set-ico" style="background:var(--pb)">🏆</div>
-        <div class="set-info"><div class="set-lbl">Код комнаты</div><div class="set-sub">Поделиться с друзьями</div></div>
-        <div class="set-right"><div style="font-size:14px;font-weight:700;color:var(--p);letter-spacing:2px" id="set-room-code">——</div><div class="chev"></div></div>
+        <div class="set-info"><div class="set-lbl">Пригласить друзей</div><div class="set-sub">Поделиться ссылкой на комнату</div></div>
+        <div class="set-right"><div class="chev"></div></div>
       </div>
       <div class="set-row" onclick="leaveRoom()">
         <div class="set-ico" style="background:var(--rb)">🚪</div>
@@ -494,7 +450,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     </div>
     <div class="set-sec-lbl">Опасная зона</div>
     <div class="danger-card">
-      <div class="set-row-danger" onclick="resetAll()">
+      <div class="set-row" onclick="resetAll()" style="cursor:pointer">
         <div class="set-ico" style="background:var(--rb);margin-right:10px">🗑️</div>
         <div class="set-info"><div class="set-lbl" style="color:var(--r)">Сбросить все данные</div><div class="set-sub">Дни, история, деньги — всё с нуля</div></div>
         <div class="chev" style="border-color:var(--r)"></div>
@@ -513,7 +469,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
       <div class="loss-row"><div class="loss-name">Лимит завтра</div><div class="loss-val" id="pl-lim">—</div></div>
     </div>
     <div class="mot-card"><div class="mot-q" id="mot-q"></div><div class="mot-s">Каждый бросающий срывается в среднем 8–11 раз. Ты не один — начни снова.</div></div>
-    <button class="restart-btn" onclick="restart()"><div class="restart-txt">🔄 Начать заново прямо сейчас</div><div class="restart-sub">Новая серия начнётся с этой минуты</div></button>
+    <button class="restart-btn" onclick="restart()" type="button"><div class="restart-txt">🔄 Начать заново прямо сейчас</div><div class="restart-sub">Новая серия начнётся с этой минуты</div></button>
   </div>
 
   <!-- Crisis -->
@@ -526,15 +482,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
       <div class="crisis-item"><div class="crisis-icon">🎵</div><div><div class="crisis-name">Включи музыку</div><div class="crisis-desc">Отвлекись на любимую песню</div></div></div>
       <div class="crisis-item"><div class="crisis-icon">🏃</div><div><div class="crisis-name">Сделай 20 приседаний</div><div class="crisis-desc">Физическая активность снимает тягу</div></div></div>
     </div>
-    <button class="crisis-ok" onclick="hideCrisis()">Я справился! 💪</button>
+    <button class="crisis-ok" onclick="hideCrisis()" type="button">Я справился! 💪</button>
     <div style="height:20px"></div>
   </div>
 
   <div class="nav" id="main-nav">
-    <button class="nb active" id="nb-home" onclick="showScreen('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
-    <button class="nb" id="nb-stats" onclick="showScreen('stats')"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Статистика</button>
-    <button class="nb" id="nb-lb" onclick="showScreen('lb')"><svg viewBox="0 0 24 24"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>Рейтинг</button>
-    <button class="nb" id="nb-jour" onclick="showScreen('jour')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Журнал</button>
+    <button class="nb active" id="nb-home" onclick="showScreen('home')" type="button"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Главная</button>
+    <button class="nb" id="nb-stats" onclick="showScreen('stats')" type="button"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Статистика</button>
+    <button class="nb" id="nb-lb" onclick="showScreen('lb')" type="button"><svg viewBox="0 0 24 24"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>Рейтинг</button>
+    <button class="nb" id="nb-jour" onclick="showScreen('jour')" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Журнал</button>
   </div>
 </div>
 
@@ -545,16 +501,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="mtitle">Почему закурил?</div>
     <div class="msub">Выбери причину — поможет бороться</div>
     <div class="trig-grid" id="trig-grid">
-      <button class="trig-btn" data-t="😤 Стресс" onclick="selTrig(this)"><div class="trig-icon">😤</div><div class="trig-lbl">Стресс</div></button>
-      <button class="trig-btn" data-t="😴 Скука" onclick="selTrig(this)"><div class="trig-icon">😴</div><div class="trig-lbl">Скука</div></button>
-      <button class="trig-btn" data-t="🍽️ После еды" onclick="selTrig(this)"><div class="trig-icon">🍽️</div><div class="trig-lbl">После еды</div></button>
-      <button class="trig-btn" data-t="🍺 Компания" onclick="selTrig(this)"><div class="trig-icon">🍺</div><div class="trig-lbl">Компания</div></button>
-      <button class="trig-btn" data-t="☕ Кофе/чай" onclick="selTrig(this)"><div class="trig-icon">☕</div><div class="trig-lbl">Кофе/чай</div></button>
-      <button class="trig-btn" data-t="❓ Другое" onclick="selTrig(this)"><div class="trig-icon">❓</div><div class="trig-lbl">Другое</div></button>
+      <button class="trig-btn" data-t="😤 Стресс" onclick="selTrig(this)" type="button"><div class="trig-icon">😤</div><div class="trig-lbl">Стресс</div></button>
+      <button class="trig-btn" data-t="😴 Скука" onclick="selTrig(this)" type="button"><div class="trig-icon">😴</div><div class="trig-lbl">Скука</div></button>
+      <button class="trig-btn" data-t="🍽️ После еды" onclick="selTrig(this)" type="button"><div class="trig-icon">🍽️</div><div class="trig-lbl">После еды</div></button>
+      <button class="trig-btn" data-t="🍺 Компания" onclick="selTrig(this)" type="button"><div class="trig-icon">🍺</div><div class="trig-lbl">Компания</div></button>
+      <button class="trig-btn" data-t="☕ Кофе/чай" onclick="selTrig(this)" type="button"><div class="trig-icon">☕</div><div class="trig-lbl">Кофе/чай</div></button>
+      <button class="trig-btn" data-t="❓ Другое" onclick="selTrig(this)" type="button"><div class="trig-icon">❓</div><div class="trig-lbl">Другое</div></button>
     </div>
     <div class="mbtns">
-      <button class="mbtn mbtn-s" id="trig-confirm" onclick="confirmLog()" disabled style="opacity:0.4">🚬 Записать сигарету</button>
-      <button class="mbtn mbtn-x" onclick="closeModal('trigger-modal')">Отмена</button>
+      <button class="mbtn mbtn-s" id="trig-confirm" onclick="confirmLog()" disabled style="opacity:0.4" type="button">🚬 Записать сигарету</button>
+      <button class="mbtn mbtn-x" onclick="closeModal('trigger-modal')" type="button">Отмена</button>
     </div>
   </div>
 </div>
@@ -565,17 +521,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="mtitle" id="hour-modal-title">08:00 — 09:00</div>
     <div class="msub">Ты курил в этот час?</div>
     <div class="trig-grid" id="hour-trig-grid">
-      <button class="trig-btn" data-t="😤 Стресс" onclick="selHourTrig(this)"><div class="trig-icon">😤</div><div class="trig-lbl">Стресс</div></button>
-      <button class="trig-btn" data-t="😴 Скука" onclick="selHourTrig(this)"><div class="trig-icon">😴</div><div class="trig-lbl">Скука</div></button>
-      <button class="trig-btn" data-t="🍽️ После еды" onclick="selHourTrig(this)"><div class="trig-icon">🍽️</div><div class="trig-lbl">После еды</div></button>
-      <button class="trig-btn" data-t="🍺 Компания" onclick="selHourTrig(this)"><div class="trig-icon">🍺</div><div class="trig-lbl">Компания</div></button>
-      <button class="trig-btn" data-t="☕ Кофе/чай" onclick="selHourTrig(this)"><div class="trig-icon">☕</div><div class="trig-lbl">Кофе/чай</div></button>
-      <button class="trig-btn" data-t="❓ Другое" onclick="selHourTrig(this)"><div class="trig-icon">❓</div><div class="trig-lbl">Другое</div></button>
+      <button class="trig-btn" data-t="😤 Стресс" onclick="selHourTrig(this)" type="button"><div class="trig-icon">😤</div><div class="trig-lbl">Стресс</div></button>
+      <button class="trig-btn" data-t="😴 Скука" onclick="selHourTrig(this)" type="button"><div class="trig-icon">😴</div><div class="trig-lbl">Скука</div></button>
+      <button class="trig-btn" data-t="🍽️ После еды" onclick="selHourTrig(this)" type="button"><div class="trig-icon">🍽️</div><div class="trig-lbl">После еды</div></button>
+      <button class="trig-btn" data-t="🍺 Компания" onclick="selHourTrig(this)" type="button"><div class="trig-icon">🍺</div><div class="trig-lbl">Компания</div></button>
+      <button class="trig-btn" data-t="☕ Кофе/чай" onclick="selHourTrig(this)" type="button"><div class="trig-icon">☕</div><div class="trig-lbl">Кофе/чай</div></button>
+      <button class="trig-btn" data-t="❓ Другое" onclick="selHourTrig(this)" type="button"><div class="trig-icon">❓</div><div class="trig-lbl">Другое</div></button>
     </div>
     <div class="mbtns">
-      <button class="mbtn mbtn-s" id="hour-smoked-btn" onclick="logHour(true)" disabled style="opacity:0.4">🚬 Да, курил</button>
-      <button class="mbtn mbtn-c" onclick="logHour(false)">✅ Нет, держался</button>
-      <button class="mbtn mbtn-x" onclick="closeModal('hour-modal')">Отмена</button>
+      <button class="mbtn mbtn-s" id="hour-smoked-btn" onclick="logHour(true)" disabled style="opacity:0.4" type="button">🚬 Да, курил</button>
+      <button class="mbtn mbtn-c" onclick="logHour(false)" type="button">✅ Нет, держался</button>
+      <button class="mbtn mbtn-x" onclick="closeModal('hour-modal')" type="button">Отмена</button>
     </div>
   </div>
 </div>
@@ -585,12 +541,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="mhandle"></div>
     <div class="mtitle">Мой план</div>
     <div class="msub">Настрой под себя</div>
-    <div class="plan-adj-row"><div class="plan-adj-lbl">Сейчас курю (сиг/день)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('baseLimit',-1)">−</button><div class="adj-val" id="adj-base">20</div><button class="adj-btn" onclick="adj('baseLimit',1)">+</button></div></div>
-    <div class="plan-adj-row"><div class="plan-adj-lbl">Цель (сиг/день)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('goalLimit',-1)">−</button><div class="adj-val" id="adj-goal">0</div><button class="adj-btn" onclick="adj('goalLimit',1)">+</button></div></div>
-    <div class="plan-adj-row"><div class="plan-adj-lbl">Снижать на (сиг)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('stepDown',-1)">−</button><div class="adj-val" id="adj-step">3</div><button class="adj-btn" onclick="adj('stepDown',1)">+</button></div></div>
-    <div class="plan-adj-row"><div class="plan-adj-lbl">Каждые (недель)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('stepWeeks',-1)">−</button><div class="adj-val" id="adj-weeks">2</div><button class="adj-btn" onclick="adj('stepWeeks',1)">+</button></div></div>
+    <div class="plan-adj-row"><div class="plan-adj-lbl">Сейчас курю (сиг/день)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('baseLimit',-1)" type="button">−</button><div class="adj-val" id="adj-base">20</div><button class="adj-btn" onclick="adj('baseLimit',1)" type="button">+</button></div></div>
+    <div class="plan-adj-row"><div class="plan-adj-lbl">Цель (сиг/день)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('goalLimit',-1)" type="button">−</button><div class="adj-val" id="adj-goal">0</div><button class="adj-btn" onclick="adj('goalLimit',1)" type="button">+</button></div></div>
+    <div class="plan-adj-row"><div class="plan-adj-lbl">Снижать на (сиг)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('stepDown',-1)" type="button">−</button><div class="adj-val" id="adj-step">3</div><button class="adj-btn" onclick="adj('stepDown',1)" type="button">+</button></div></div>
+    <div class="plan-adj-row"><div class="plan-adj-lbl">Каждые (недель)</div><div class="plan-adj-ctrl"><button class="adj-btn" onclick="adj('stepWeeks',-1)" type="button">−</button><div class="adj-val" id="adj-weeks">2</div><button class="adj-btn" onclick="adj('stepWeeks',1)" type="button">+</button></div></div>
     <div id="plan-calc" style="background:#0A0A0A;border-radius:10px;padding:10px;text-align:center;margin:12px 0;font-size:13px;color:var(--t2)"></div>
-    <div class="mbtns"><button class="mbtn mbtn-c" onclick="savePlan()">Сохранить план</button><button class="mbtn mbtn-x" onclick="closeModal('plan-modal')">Отмена</button></div>
+    <div class="mbtns"><button class="mbtn mbtn-c" onclick="savePlan()" type="button">Сохранить план</button><button class="mbtn mbtn-x" onclick="closeModal('plan-modal')" type="button">Отмена</button></div>
   </div>
 </div>
 
@@ -602,20 +558,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <input class="finp" id="prof-name" placeholder="Твоё имя" maxlength="20"/>
     <label class="flbl">Аватар</label>
     <div class="emoji-picker" id="prof-emoji">
-      <button class="ep-btn" data-e="💪" onclick="selProfEmoji(this)">💪</button>
-      <button class="ep-btn" data-e="🔥" onclick="selProfEmoji(this)">🔥</button>
-      <button class="ep-btn" data-e="⚡" onclick="selProfEmoji(this)">⚡</button>
-      <button class="ep-btn" data-e="🦁" onclick="selProfEmoji(this)">🦁</button>
-      <button class="ep-btn" data-e="🏆" onclick="selProfEmoji(this)">🏆</button>
-      <button class="ep-btn" data-e="🌟" onclick="selProfEmoji(this)">🌟</button>
-      <button class="ep-btn" data-e="😎" onclick="selProfEmoji(this)">😎</button>
-      <button class="ep-btn" data-e="🦅" onclick="selProfEmoji(this)">🦅</button>
-      <button class="ep-btn" data-e="🎯" onclick="selProfEmoji(this)">🎯</button>
-      <button class="ep-btn" data-e="🚀" onclick="selProfEmoji(this)">🚀</button>
-      <button class="ep-btn" data-e="💎" onclick="selProfEmoji(this)">💎</button>
-      <button class="ep-btn" data-e="🌊" onclick="selProfEmoji(this)">🌊</button>
+      <button class="ep-btn" data-e="💪" onclick="selProfEmoji(this)" type="button">💪</button>
+      <button class="ep-btn" data-e="🔥" onclick="selProfEmoji(this)" type="button">🔥</button>
+      <button class="ep-btn" data-e="⚡" onclick="selProfEmoji(this)" type="button">⚡</button>
+      <button class="ep-btn" data-e="🦁" onclick="selProfEmoji(this)" type="button">🦁</button>
+      <button class="ep-btn" data-e="🏆" onclick="selProfEmoji(this)" type="button">🏆</button>
+      <button class="ep-btn" data-e="🌟" onclick="selProfEmoji(this)" type="button">🌟</button>
+      <button class="ep-btn" data-e="😎" onclick="selProfEmoji(this)" type="button">😎</button>
+      <button class="ep-btn" data-e="🦅" onclick="selProfEmoji(this)" type="button">🦅</button>
+      <button class="ep-btn" data-e="🎯" onclick="selProfEmoji(this)" type="button">🎯</button>
+      <button class="ep-btn" data-e="🚀" onclick="selProfEmoji(this)" type="button">🚀</button>
+      <button class="ep-btn" data-e="💎" onclick="selProfEmoji(this)" type="button">💎</button>
+      <button class="ep-btn" data-e="🌊" onclick="selProfEmoji(this)" type="button">🌊</button>
     </div>
-    <div class="mbtns" style="margin-top:8px"><button class="mbtn mbtn-c" onclick="saveProfile()">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('profile-modal')">Отмена</button></div>
+    <div class="mbtns" style="margin-top:8px"><button class="mbtn mbtn-c" onclick="saveProfile()" type="button">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('profile-modal')" type="button">Отмена</button></div>
   </div>
 </div>
 
@@ -625,7 +581,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="mtitle">Цена пачки</div>
     <div class="msub">Используется для подсчёта сэкономленных денег</div>
     <input class="finp" id="price-inp" type="number" placeholder="24000" style="margin-bottom:12px"/>
-    <div class="mbtns"><button class="mbtn mbtn-c" onclick="savePrice()">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('price-modal')">Отмена</button></div>
+    <div class="mbtns"><button class="mbtn mbtn-c" onclick="savePrice()" type="button">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('price-modal')" type="button">Отмена</button></div>
   </div>
 </div>
 
@@ -635,19 +591,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="mtitle">Своя цитата</div>
     <div class="msub">Напиши фразу которая мотивирует тебя лично</div>
     <input class="finp" id="quote-inp" placeholder="Например: Я сильнее этой привычки" maxlength="100" style="margin-bottom:12px"/>
-    <div class="mbtns"><button class="mbtn mbtn-c" onclick="saveCustomQuote()">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('quote-modal')">Отмена</button></div>
+    <div class="mbtns"><button class="mbtn mbtn-c" onclick="saveCustomQuote()" type="button">Сохранить</button><button class="mbtn mbtn-x" onclick="closeModal('quote-modal')" type="button">Отмена</button></div>
   </div>
 </div>
 
 <script>
+/* ── Firebase config ── */
+const FB_URL='https://quit-smoke-16426-default-rtdb.firebaseio.com';
+const APP_URL='https://t.me/quit_smoke_uz_bot/Quit';
+
 const QUOTES=['"Падать не стыдно. Стыдно не подниматься."','"Каждый новый день — шанс стать лучше."','"Сила воли — мышца. Тренируй её."','"Ты уже доказал что можешь. Докажи снова."','"Срыв — часть пути, не конец."','"Лёгких путей нет. Есть пути стоящие усилий."','"Твоё тело говорит тебе спасибо каждый час."'];
 const HOURS=Array.from({length:16},(_,i)=>i+8);
 const MEDALS=['🥇','🥈','🥉'];
 const COLORS=['rgba(48,209,88,0.15)','rgba(255,159,10,0.15)','rgba(10,132,255,0.15)','rgba(255,69,58,0.15)','rgba(191,90,242,0.15)'];
 const CCOLORS=['#30D158','#FF9F0A','#0A84FF','#FF453A','#BF5AF2'];
 
-let d=JSON.parse(localStorage.getItem('q3')||'{}');
-let sets=JSON.parse(localStorage.getItem('q3s')||'{}');
+let d=JSON.parse(localStorage.getItem('q5')||'{}');
+let sets=JSON.parse(localStorage.getItem('q5s')||'{}');
 let pendingHour=null,selTrigVal=null,selHourTrigVal=null,obEmoji='💪';
 if(!sets.price)sets.price=24000;
 if(!sets.freq)sets.freq=1;
@@ -660,13 +620,52 @@ function pad(n){return String(n).padStart(2,'0')}
 function todayKey(){const x=new Date();return x.getFullYear()+'-'+(x.getMonth()+1)+'-'+x.getDate()}
 function minsSince(iso){return(new Date()-new Date(iso))/60000}
 function formatMoney(n){if(n>=1000000)return(n/1000000).toFixed(1)+' млн';if(n>=1000)return Math.round(n/1000)+' тыс.';return Math.round(n)+''}
-function save(){localStorage.setItem('q3',JSON.stringify(d))}
-function saveS(){localStorage.setItem('q3s',JSON.stringify(sets))}
-
-async function storageGet(k,sh){try{const r=await window.storage.get(k,sh);return r?JSON.parse(r.value):null}catch{return null}}
-async function storageSet(k,v,sh){try{await window.storage.set(k,JSON.stringify(v),sh)}catch{}}
-
+function save(){localStorage.setItem('q5',JSON.stringify(d))}
+function saveS(){localStorage.setItem('q5s',JSON.stringify(sets))}
 function genCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
+function roomLink(code){return APP_URL+'?room='+code}
+
+/* ── Firebase REST API ── */
+async function fbGet(path){
+  try{
+    const r=await fetch(FB_URL+path+'.json');
+    if(!r.ok)return null;
+    return await r.json();
+  }catch{return null}
+}
+async function fbSet(path,data){
+  try{
+    await fetch(FB_URL+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    return true;
+  }catch{return false}
+}
+async function fbPatch(path,data){
+  try{
+    await fetch(FB_URL+path+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    return true;
+  }catch{return false}
+}
+
+/* ── Room link sharing ── */
+function shareLink(){
+  const link=roomLink(d.code||'');
+  if(navigator.share){
+    navigator.share({title:'Бросаю курить',text:'Присоединяйся ко мне — бросаем курить вместе! 🚭',url:link}).catch(()=>{});
+  } else {
+    if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});
+    showToast('📋','Ссылка скопирована!','Отправь друзьям в WhatsApp или Telegram');
+  }
+}
+
+/* ── Check URL for room invite ── */
+function checkRoomInvite(){
+  const params=new URLSearchParams(window.location.search);
+  const roomCode=params.get('room');
+  if(roomCode&&!d.name){
+    document.getElementById('inp-code').value=roomCode.toUpperCase();
+    showToast('🏆','Приглашение в комнату','Введи имя и нажми "Войти в комнату"');
+  }
+}
 
 /* ── Onboarding ── */
 function selObEmoji(btn){document.querySelectorAll('#ob-emoji .ep-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');obEmoji=btn.dataset.e}
@@ -677,8 +676,12 @@ async function createRoom(){
   const code=genCode(),userId='u_'+Date.now();
   d={name,avatar:obEmoji,code,userId,startDate:new Date().toISOString(),streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
   save();
-  await storageSet('room:'+code,{code,members:{[userId]:{name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0}}},true);
-  document.getElementById('created-code').textContent=code;
+  showToast('⏳','Создаём комнату...','');
+  const member={name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0};
+  await fbSet('/rooms/'+code+'/members/'+userId,member);
+  const link=roomLink(code);
+  document.getElementById('created-link').textContent=link;
+  document.getElementById('lb-link-show').textContent=link;
   document.getElementById('ob-start').style.display='none';
   document.getElementById('ob-created').style.display='flex';
 }
@@ -686,14 +689,16 @@ async function createRoom(){
 async function joinRoom(){
   const name=document.getElementById('inp-name').value.trim();
   const code=document.getElementById('inp-code').value.trim().toUpperCase();
-  if(!name||code.length<4){showToast('❌','Заполни все поля','');return}
-  const room=await storageGet('room:'+code,true);
-  if(!room){showToast('❌','Комната не найдена','Проверь код');return}
+  if(!name){document.getElementById('inp-name').focus();return}
+  if(code.length<4){document.getElementById('inp-code').focus();return}
+  showToast('⏳','Входим в комнату...','');
+  const room=await fbGet('/rooms/'+code);
+  if(!room){showToast('❌','Комната не найдена','Проверь код или ссылку');return}
   const userId='u_'+Date.now();
   d={name,avatar:obEmoji,code,userId,startDate:new Date().toISOString(),streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
   save();
-  room.members[userId]={name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0};
-  await storageSet('room:'+code,room,true);
+  await fbSet('/rooms/'+code+'/members/'+userId,{name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0});
+  showToast('✅','Добро пожаловать!','Ты в комнате '+code);
   startApp();
 }
 
@@ -704,24 +709,16 @@ function startApp(){
   if(Notification.permission==='granted')scheduleNotifs();
 }
 
-function copyCode(){
-  const code=d.code||'';
-  if(navigator.clipboard)navigator.clipboard.writeText(code).catch(()=>{});
-  showToast('📋','Код скопирован',code);
-}
-
 /* ── Day/week logic ── */
 function checkDayReset(){
   const today=todayKey();
   if(d.lastDay&&d.lastDay!==today){
     if((d.todaySmoked||0)>(d.currentLimit||20)){
-      triggerPenalty(true);
+      d.streak=0;d.currentLimit=Math.min(d.baseLimit||20,(d.currentLimit||20)+3);
     } else {
-      d.streak=(d.streak||0)+1;
-      if(d.streak>d.record)d.record=d.streak;
+      d.streak=(d.streak||0)+1;if(d.streak>d.record)d.record=d.streak;
     }
-    d.todaySmoked=0;
-    checkWeeklyReduction();
+    d.todaySmoked=0;checkWeeklyReduction();
   }
   d.lastDay=today;save();
 }
@@ -729,35 +726,29 @@ function checkDayReset(){
 function checkWeeklyReduction(){
   if(!d.startDate)return;
   const weeks=Math.floor((new Date()-new Date(d.startDate))/(7*24*60*60*1000));
-  const reduced=(d.baseLimit||20)-(weeks*Math.floor(d.stepDown||3)/Math.floor(d.stepWeeks||2)*d.stepWeeks);
-  d.currentLimit=Math.max(d.goalLimit||0,Math.min(d.baseLimit||20,Math.round(reduced)));
+  const newLimit=(d.baseLimit||20)-Math.floor(weeks*(d.stepDown||3)/(d.stepWeeks||2));
+  d.currentLimit=Math.max(d.goalLimit||0,Math.min(d.baseLimit||20,newLimit));
   save();
 }
 
-/* ── Push to leaderboard ── */
-async function pushLB(){
-  if(!d.code||!d.userId)return;
-  const room=await storageGet('room:'+d.code,true);
-  if(!room)return;
-  const days=Math.floor(minsSince(d.startDate)/1440);
-  room.members[d.userId]={name:d.name,avatar:d.avatar||'💪',userId:d.userId,startDate:d.startDate,streak:d.streak||0,days};
-  await storageSet('room:'+d.code,room,true);
-}
-
+/* ── Leaderboard ── */
 async function updateLB(){
   if(!d.code)return;
   await pushLB();
-  const room=await storageGet('room:'+d.code,true);
+  const link=roomLink(d.code);
   document.getElementById('lb-room-lbl').textContent='Комната: '+d.code;
-  document.getElementById('lb-code').textContent=d.code;
+  document.getElementById('lb-link-show').textContent=link;
+  const members=await fbGet('/rooms/'+d.code+'/members');
   const el=document.getElementById('lb-list');
-  if(!room){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3)">Нет соединения</div>';return}
-  const members=Object.values(room.members).sort((a,b)=>b.days-a.days);
-  el.innerHTML=members.map((m,i)=>{
+  if(!members){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3)">Нет соединения с сервером</div>';return}
+  const list=Object.values(members).sort((a,b)=>b.days-a.days);
+  if(!list.length){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3)">Пока только ты</div>';return}
+  const medals=['🥇','🥈','🥉'];
+  el.innerHTML=list.map((m,i)=>{
     const isMe=m.userId===d.userId;
     const dw=m.days===1?'день':m.days<5?'дня':'дней';
     return`<div class="lb-item${isMe?' me':''}">
-      <div class="lb-rank">${MEDALS[i]||i+1}</div>
+      <div class="lb-rank">${medals[i]||i+1}</div>
       <div class="lb-av" style="background:${COLORS[i%COLORS.length]};color:${CCOLORS[i%CCOLORS.length]}">${m.avatar||'💪'}</div>
       <div class="lb-info"><div class="lb-name">${m.name}${isMe?' (ты)':''}</div><div class="lb-sub">🔥 ${m.streak||0} дн. серия</div></div>
       <div class="lb-score"><div class="lb-num">${m.days}</div><div class="lb-unit">${dw}</div></div>
@@ -765,20 +756,21 @@ async function updateLB(){
   }).join('');
 }
 
+async function pushLB(){
+  if(!d.code||!d.userId)return;
+  const days=Math.floor(minsSince(d.startDate)/1440);
+  await fbPatch('/rooms/'+d.code+'/members/'+d.userId,{name:d.name,avatar:d.avatar||'💪',userId:d.userId,startDate:d.startDate,streak:d.streak||0,days});
+}
+
 /* ── Render ── */
 function getGreeting(){const h=new Date().getHours();return h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер'}
 
 function render(){
   const mins=minsSince(d.startDate||new Date().toISOString());
-  const days=Math.floor(mins/1440);
-  const hrs=Math.floor((mins%1440)/60);
-  const mn=Math.floor(mins%60);
-  const streak=d.streak||0;
-  const limit=d.currentLimit||20;
-  const smoked=d.todaySmoked||0;
-  const pricePack=sets.price||24000;
-  const priceCig=pricePack/20;
-  const notSmoked=Math.max(0,Math.round(days*limit)-smoked);
+  const days=Math.floor(mins/1440),hrs=Math.floor((mins%1440)/60),mn=Math.floor(mins%60);
+  const streak=d.streak||0,limit=d.currentLimit||20,smoked=d.todaySmoked||0;
+  const priceCig=(sets.price||24000)/20;
+  const notSmoked=Math.max(0,days*limit-smoked);
   const saved=Math.round(notSmoked*priceCig);
 
   document.getElementById('greet').textContent=getGreeting();
@@ -786,19 +778,16 @@ function render(){
   document.getElementById('streak-txt').textContent=streak+' '+(streak===1?'день':streak<5?'дня':'дней');
 
   const circ=389.6;
-  const pct=Math.min(1,days/30);
-  document.getElementById('ring-fill').style.strokeDashoffset=circ-(circ*pct);
+  document.getElementById('ring-fill').style.strokeDashoffset=circ-Math.min(circ,circ*days/30);
   document.getElementById('ring-num').textContent=days;
   document.getElementById('ring-sub').textContent=hrs+' ч · '+mn+' мин';
   const tags=['Начни прямо сейчас 💪','Ты справляешься! 💪','Отличная работа! 🔥','Ты — машина! 🏆','Легенда! 🌟'];
   document.getElementById('ring-tag').textContent=tags[Math.min(Math.floor(days/3),tags.length-1)];
 
   const nowH=new Date().getHours();
-  const goalPct=Math.min(100,Math.round((nowH/24)*100));
-  document.getElementById('goal-bar').style.width=goalPct+'%';
+  document.getElementById('goal-bar').style.width=Math.min(100,Math.round(nowH/24*100))+'%';
   document.getElementById('goal-time').textContent=nowH+' ч из 24';
-  const remaining=24-nowH;
-  document.getElementById('goal-sub').textContent=smoked===0?`Держишься! Осталось ${remaining} часов`:`Выкурено ${smoked} — постарайся не превышать лимит`;
+  document.getElementById('goal-sub').textContent=smoked===0?`Держишься ${nowH} часов! Осталось ${24-nowH} ч`:`Выкурено ${smoked} — лимит ${limit} сиг.`;
 
   const isOver=smoked>limit;
   const numEl=document.getElementById('cig-num');
@@ -807,8 +796,8 @@ function render(){
   document.getElementById('cig-denom').textContent='/ '+limit;
   document.getElementById('cig-lim').textContent='Лимит: '+limit;
   const logBtn=document.getElementById('log-btn');
-  if(isOver){logBtn.textContent='⚠️ Лимит превышен';logBtn.className='btn-log over';}
-  else{logBtn.textContent='+ Записать сигарету';logBtn.className='btn-log';}
+  logBtn.textContent=isOver?'⚠️ Лимит превышен':'+ Записать сигарету';
+  logBtn.className=isOver?'btn-log over':'btn-log';
 
   const mb=document.getElementById('mini-bars');
   mb.innerHTML='';
@@ -816,20 +805,16 @@ function render(){
 
   document.getElementById('pm-days').textContent=streak+' дн.';
   document.getElementById('pm-money').textContent=formatMoney(saved);
-  document.getElementById('pm-lim').textContent='+'+(limit<20?3:0);
+  document.getElementById('pm-lim').textContent='+3';
 
   const qCard=document.getElementById('quote-card');
-  if(sets.showQuote){
-    qCard.style.display='block';
-    const q=sets.customQuote||QUOTES[days%QUOTES.length];
-    document.getElementById('quote-txt').textContent=q;
-  } else qCard.style.display='none';
+  if(sets.showQuote){qCard.style.display='block';document.getElementById('quote-txt').textContent=sets.customQuote||QUOTES[days%QUOTES.length];}
+  else qCard.style.display='none';
 
   renderStats();renderJour();
   document.getElementById('av-circle').textContent=d.avatar||'💪';
   document.getElementById('av-name').textContent=d.name||'—';
   document.getElementById('av-sub').textContent='Комната: '+(d.code||'—');
-  document.getElementById('set-room-code').textContent=d.code||'—';
   document.getElementById('set-price-val').textContent=(sets.price||24000).toLocaleString()+' сум';
   document.getElementById('custom-quote-preview').textContent=sets.customQuote||'Не задана';
   document.getElementById('notif-start').value=sets.notifStart||'08:00';
@@ -841,25 +826,29 @@ function render(){
 }
 
 function renderStats(){
-  const limit=d.currentLimit||20;
-  const priceCig=(sets.price||24000)/20;
-  const log=d.hourLog||{};
+  const limit=d.currentLimit||20,log=d.hourLog||{};
   const days7=[];
-  for(let i=6;i>=0;i--){const dt=new Date();dt.setDate(dt.getDate()-i);const k=dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate();const dayLog=log[k]||{};const cnt=Object.values(dayLog).filter(Boolean).length;days7.push({date:dt,cnt,k});}
+  for(let i=6;i>=0;i--){
+    const dt=new Date();dt.setDate(dt.getDate()-i);
+    const k=dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate();
+    const cnt=Object.values(log[k]||{}).filter(v=>v&&v!==false).length;
+    days7.push({date:dt,cnt,k});
+  }
   const maxCnt=Math.max(...days7.map(x=>x.cnt),limit,1);
   const todayK=todayKey();
-  const wdLabels=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+  const wdL=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
   document.getElementById('chart-bars').innerHTML=days7.map(x=>{
     const h=Math.round((x.cnt/maxCnt)*68)+2;
     const isToday=x.k===todayK;
-    const col=x.cnt===0&&!isToday?'var(--g)':x.cnt>limit?'var(--r)':x.cnt>limit*0.8?'var(--a)':'var(--g)';
-    return`<div class="cbar-wrap"><div class="cbar" style="height:${h}px;background:${col}"></div><div class="cbar-lbl${isToday?' today':''}">${wdLabels[x.date.getDay()]}</div></div>`;
+    const col=x.cnt===0&&!isToday?'var(--surf)':x.cnt>limit?'var(--r)':x.cnt>limit*0.8?'var(--a)':'var(--g)';
+    return`<div class="cbar-wrap"><div class="cbar" style="height:${h}px;background:${col}"></div><div class="cbar-lbl${isToday?' today':''}">${wdL[x.date.getDay()]}</div></div>`;
   }).join('');
   const trend=days7[6].cnt-days7[0].cnt;
-  document.getElementById('chart-trend').textContent=trend<0?'↓ −'+Math.abs(trend)+' сиг.':trend>0?'↑ +'+trend+' сиг.':'→ без изменений';
-  document.getElementById('chart-trend').style.color=trend<=0?'var(--g)':'var(--r)';
+  const tEl=document.getElementById('chart-trend');
+  tEl.textContent=trend<0?'↓ −'+Math.abs(trend)+' сиг.':trend>0?'↑ +'+trend+' сиг.':'→ стабильно';
+  tEl.style.color=trend<=0?'var(--g)':'var(--r)';
   const best=days7.reduce((a,b)=>b.cnt<a.cnt?b:a,days7[0]);
-  document.getElementById('chart-best').textContent='Лучший: '+wdLabels[best.date.getDay()]+' — '+best.cnt+' сиг.';
+  document.getElementById('chart-best').textContent='Лучший: '+wdL[best.date.getDay()]+' — '+best.cnt+' сиг.';
   document.getElementById('chart-lim-lbl').textContent='Лимит: '+limit+'/день';
 
   const base=d.baseLimit||20,goal=d.goalLimit||0,step=d.stepDown||3,weeks=d.stepWeeks||2;
@@ -867,38 +856,36 @@ function renderStats(){
   document.getElementById('plan-goal').textContent=goal;
   document.getElementById('ps-now').textContent=limit+' сиг.';
   document.getElementById('ps-step').textContent='−'+step+' сиг.';
-  const weeksLeft=step>0?Math.ceil((limit-goal)/step)*weeks:99;
-  document.getElementById('ps-weeks').textContent='~'+weeksLeft+' нед.';
-  const pct=base===goal?100:Math.round((1-(limit-goal)/(base-goal))*100);
+  document.getElementById('ps-weeks').textContent='~'+Math.ceil((limit-goal)/Math.max(1,step))*weeks+' нед.';
+  const pct=base===goal?100:Math.round((1-(limit-goal)/Math.max(1,base-goal))*100);
   document.getElementById('plan-bar').style.width=Math.min(100,Math.max(0,pct))+'%';
 
   const slips=d.slipHistory||[];
-  const histEl=document.getElementById('hist-list');
-  if(!slips.length){histEl.innerHTML='<div style="font-size:13px;color:var(--t3)">Срывов пока не было 🎉</div>';return}
-  const trigCounts={};
-  slips.forEach(s=>{if(s.trigger)trigCounts[s.trigger]=(trigCounts[s.trigger]||0)+1});
-  const topTrig=Object.keys(trigCounts).sort((a,b)=>trigCounts[b]-trigCounts[a])[0];
-  histEl.innerHTML=slips.slice(0,5).map(s=>{
-    const col=s.trigger?.includes('Стресс')?'var(--rb),color:var(--r)':s.trigger?.includes('Компания')?'var(--bb),color:var(--b)':'var(--ab),color:var(--a)';
-    return`<div class="hist-item"><div class="hist-info"><div class="hist-date">${s.date}</div><div class="hist-sub">Выкурил ${s.count} сиг. · лимит ${s.limit}</div></div><div class="hist-tag" style="background:${col.split(',')[0]};${col.split(',')[1]}">${s.trigger||'❓'}</div></div>`;
-  }).join('')+(topTrig?`<div class="pattern-box"><div class="pattern-lbl">💡 Паттерн</div><div class="pattern-txt">Чаще всего срываешься из-за «${topTrig}». При этом триггере — сразу открой советы.</div></div>`:'');
+  const hEl=document.getElementById('hist-list');
+  if(!slips.length){hEl.innerHTML='<div style="font-size:13px;color:var(--t3)">Срывов пока не было 🎉</div>';return}
+  const tc={};slips.forEach(s=>{if(s.trigger)tc[s.trigger]=(tc[s.trigger]||0)+1});
+  const top=Object.keys(tc).sort((a,b)=>tc[b]-tc[a])[0];
+  hEl.innerHTML=slips.slice(0,5).map(s=>{
+    const isS=s.trigger?.includes('Стресс'),isC=s.trigger?.includes('Компания');
+    const bg=isS?'var(--rb)':isC?'var(--bb)':'var(--ab)';
+    const col=isS?'var(--r)':isC?'var(--b)':'var(--a)';
+    return`<div class="hist-item"><div class="hist-info"><div class="hist-date">${s.date}</div><div class="hist-sub">Выкурил ${s.count} сиг. · лимит ${s.limit}</div></div><div class="hist-tag" style="background:${bg};color:${col}">${s.trigger||'❓'}</div></div>`;
+  }).join('')+(top?`<div class="pattern-box"><div class="pattern-lbl">💡 Паттерн</div><div class="pattern-txt">Чаще срываешься из-за «${top}». При этом триггере — сразу открой 🆘 Помощь.</div></div>`:'');
 }
 
 function renderJour(){
-  const today=todayKey();
-  const log=(d.hourLog||{})[today]||{};
-  const nowH=new Date().getHours();
+  const today=todayKey(),log=(d.hourLog||{})[today]||{},nowH=new Date().getHours();
   const answered=Object.keys(log).length;
-  const smoked=Object.values(log).filter(Boolean).length;
+  const smoked=Object.values(log).filter(v=>v&&v!==false).length;
   document.getElementById('jour-summary').textContent=`Отмечено: ${answered} / ${HOURS.filter(h=>h<=nowH).length}`;
   document.getElementById('jour-smoked').textContent=`Выкурено: ${smoked}`;
   document.getElementById('jour-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
   document.getElementById('hour-grid').innerHTML=HOURS.map(h=>{
-    const k=String(h),logged=k in log,smokedH=log[k],fut=h>nowH;
+    const k=String(h),logged=k in log,val=log[k],fut=h>nowH,smokedH=val&&val!==false;
     let cls='hcard',st='',btns='';
     if(fut){cls+=' fut';st='Ещё не наступил';}
     else if(logged){cls+=smokedH?' smk':' cln';st=smokedH?'🚬 Курил':'✅ Держался';}
-    else{st=h===nowH?'⏱ Сейчас':'Не отмечено';btns=`<div class="hbtns"><button class="hbtn hbtn-s" onclick="event.stopPropagation();quickLogH(${h},true)">🚬</button><button class="hbtn hbtn-c" onclick="event.stopPropagation();quickLogH(${h},false)">✅</button></div>`;}
+    else{st=h===nowH?'⏱ Сейчас':'Не отмечено';btns=`<div class="hbtns"><button class="hbtn hbtn-s" onclick="event.stopPropagation();quickLogH(${h},true)" type="button">🚬</button><button class="hbtn hbtn-c" onclick="event.stopPropagation();quickLogH(${h},false)" type="button">✅</button></div>`;}
     return`<div class="${cls}" onclick="${!fut&&!logged?`openHourModal(${h})`:''}"><div class="htime">${pad(h)}:00</div><div class="hstatus">${st}</div>${btns}</div>`;
   }).join('');
 }
@@ -908,47 +895,39 @@ function openTriggerModal(){
   if((d.todaySmoked||0)>=(d.currentLimit||20))return;
   selTrigVal=null;
   document.querySelectorAll('#trig-grid .trig-btn').forEach(b=>b.classList.remove('sel'));
-  document.getElementById('trig-confirm').disabled=true;
-  document.getElementById('trig-confirm').style.opacity='0.4';
+  const btn=document.getElementById('trig-confirm');btn.disabled=true;btn.style.opacity='0.4';
   openModal('trigger-modal');
 }
 function selTrig(btn){
   document.querySelectorAll('#trig-grid .trig-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');selTrigVal=btn.dataset.t;
-  document.getElementById('trig-confirm').disabled=false;
-  document.getElementById('trig-confirm').style.opacity='1';
+  const cb=document.getElementById('trig-confirm');cb.disabled=false;cb.style.opacity='1';
 }
 function confirmLog(){
   d.todaySmoked=(d.todaySmoked||0)+1;
-  if(!d.hourLog)d.hourLog={};
   const today=todayKey(),h=new Date().getHours();
+  if(!d.hourLog)d.hourLog={};
   if(!d.hourLog[today])d.hourLog[today]={};
-  d.hourLog[today][String(h)]=selTrigVal||true;
+  d.hourLog[today][String(h)]=selTrigVal||'❓ Другое';
   save();closeModal('trigger-modal');
-  if(d.todaySmoked>(d.currentLimit||20)){render();setTimeout(()=>triggerPenalty(false),200);}
-  else{showToast('🚬','Записано',`Осталось ${(d.currentLimit||20)-d.todaySmoked}`);render();pushLB();}
+  if(d.todaySmoked>(d.currentLimit||20)){render();setTimeout(()=>triggerPenalty(),200);}
+  else{showToast('🚬','Записано',`Осталось ${(d.currentLimit||20)-d.todaySmoked} из ${d.currentLimit||20}`);render();pushLB();}
 }
 
 /* ── Hour log ── */
 function openHourModal(h){
   pendingHour=h;selHourTrigVal=null;
   document.querySelectorAll('#hour-trig-grid .trig-btn').forEach(b=>b.classList.remove('sel'));
-  document.getElementById('hour-smoked-btn').disabled=true;
-  document.getElementById('hour-smoked-btn').style.opacity='0.4';
+  const btn=document.getElementById('hour-smoked-btn');btn.disabled=true;btn.style.opacity='0.4';
   document.getElementById('hour-modal-title').textContent=`${pad(h)}:00 — ${pad(h+1)}:00`;
   openModal('hour-modal');
 }
 function selHourTrig(btn){
   document.querySelectorAll('#hour-trig-grid .trig-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');selHourTrigVal=btn.dataset.t;
-  document.getElementById('hour-smoked-btn').disabled=false;
-  document.getElementById('hour-smoked-btn').style.opacity='1';
+  const cb=document.getElementById('hour-smoked-btn');cb.disabled=false;cb.style.opacity='1';
 }
-function logHour(smoked){
-  if(pendingHour===null)return;
-  saveHourLog(pendingHour,smoked?selHourTrigVal||true:false);
-  closeModal('hour-modal');
-}
+function logHour(smoked){if(pendingHour===null)return;saveHourLog(pendingHour,smoked?(selHourTrigVal||'❓ Другое'):false);closeModal('hour-modal')}
 function quickLogH(h,smoked){saveHourLog(h,smoked?true:false)}
 function saveHourLog(h,val){
   const today=todayKey();
@@ -957,14 +936,14 @@ function saveHourLog(h,val){
   d.hourLog[today][String(h)]=val;
   if(val){
     d.todaySmoked=(d.todaySmoked||0)+1;
-    if(d.todaySmoked>(d.currentLimit||20)){save();render();setTimeout(()=>triggerPenalty(false),200);return;}
+    if(d.todaySmoked>(d.currentLimit||20)){save();render();setTimeout(()=>triggerPenalty(),200);return;}
     showToast('🚬','Записано',`${pad(h)}:00 — курил`);
   } else showToast('✅','Молодец!',`${pad(h)}:00 — держался 💪`);
   save();render();pushLB();
 }
 
 /* ── Penalty ── */
-function triggerPenalty(isNewDay){
+function triggerPenalty(){
   const streak=d.streak||0,limit=d.currentLimit||20;
   const priceCig=(sets.price||24000)/20;
   const days=Math.floor(minsSince(d.startDate)/1440);
@@ -977,7 +956,7 @@ function triggerPenalty(isNewDay){
   d.slipHistory.unshift({date:new Date().toLocaleDateString('ru-RU'),count:d.todaySmoked,limit,trigger:selTrigVal||selHourTrigVal||'❓ Другое'});
   if(d.slipHistory.length>20)d.slipHistory=d.slipHistory.slice(0,20);
   d.streak=0;d.currentLimit=Math.min(d.baseLimit||20,limit+3);save();pushLB();
-  ['home-scr','stats-scr','lb-scr','jour-scr','set-scr','crisis-scr'].forEach(x=>document.getElementById(x).style.display='none');
+  ['home-scr','stats-scr','lb-scr','jour-scr','set-scr','crisis-scr'].forEach(x=>{const el=document.getElementById(x);if(el)el.style.display='none';});
   document.getElementById('pen-scr').style.display='block';
   document.getElementById('main-nav').style.display='none';
 }
@@ -990,7 +969,7 @@ function restart(){
 
 /* ── Crisis ── */
 function showCrisis(){
-  ['home-scr','stats-scr','lb-scr','jour-scr','set-scr'].forEach(x=>document.getElementById(x).style.display='none');
+  ['home-scr','stats-scr','lb-scr','jour-scr','set-scr'].forEach(x=>{const el=document.getElementById(x);if(el)el.style.display='none';});
   document.getElementById('crisis-scr').style.display='block';
 }
 function hideCrisis(){document.getElementById('crisis-scr').style.display='none';showScreen('home')}
@@ -998,29 +977,27 @@ function hideCrisis(){document.getElementById('crisis-scr').style.display='none'
 /* ── Screen nav ── */
 function showScreen(s){
   const map={home:'home-scr',stats:'stats-scr',lb:'lb-scr',jour:'jour-scr',settings:'set-scr'};
-  Object.values(map).forEach(x=>{if(document.getElementById(x))document.getElementById(x).style.display='none'});
+  Object.values(map).forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.getElementById('pen-scr').style.display='none';
   document.getElementById('crisis-scr').style.display='none';
   if(map[s])document.getElementById(map[s]).style.display='block';
-  ['home','stats','lb','jour'].forEach(x=>{const el=document.getElementById('nb-'+x);if(el)el.classList.toggle('active',x===s)});
+  ['home','stats','lb','jour'].forEach(x=>{const el=document.getElementById('nb-'+x);if(el)el.classList.toggle('active',x===s);});
   if(s==='lb')updateLB();
   render();
 }
 
-/* ── Plan modal ── */
+/* ── Plan ── */
 function openPlanModal(){
   document.getElementById('adj-base').textContent=d.baseLimit||20;
   document.getElementById('adj-goal').textContent=d.goalLimit||0;
   document.getElementById('adj-step').textContent=d.stepDown||3;
   document.getElementById('adj-weeks').textContent=d.stepWeeks||2;
-  updatePlanCalc();
-  openModal('plan-modal');
+  updatePlanCalc();openModal('plan-modal');
 }
 function adj(key,delta){
-  const el=document.getElementById('adj-'+{baseLimit:'base',goalLimit:'goal',stepDown:'step',stepWeeks:'weeks'}[key]);
-  const cur=parseInt(el.textContent)||0;
-  const min=key==='stepWeeks'||key==='stepDown'?1:0;
-  el.textContent=Math.max(min,cur+delta);
+  const ids={baseLimit:'adj-base',goalLimit:'adj-goal',stepDown:'adj-step',stepWeeks:'adj-weeks'};
+  const el=document.getElementById(ids[key]);
+  el.textContent=Math.max(key==='stepWeeks'||key==='stepDown'?1:0,(parseInt(el.textContent)||0)+delta);
   updatePlanCalc();
 }
 function updatePlanCalc(){
@@ -1028,8 +1005,7 @@ function updatePlanCalc(){
   const goal=parseInt(document.getElementById('adj-goal').textContent)||0;
   const step=parseInt(document.getElementById('adj-step').textContent)||3;
   const weeks=parseInt(document.getElementById('adj-weeks').textContent)||2;
-  const w=step>0?Math.ceil((base-goal)/step)*weeks:0;
-  document.getElementById('plan-calc').textContent=`Через ~${w} недель достигнешь цели ${goal} сиг/день`;
+  document.getElementById('plan-calc').textContent=`Через ~${step>0?Math.ceil((base-goal)/step)*weeks:0} недель достигнешь цели ${goal} сиг/день`;
 }
 function savePlan(){
   d.baseLimit=parseInt(document.getElementById('adj-base').textContent)||20;
@@ -1039,7 +1015,7 @@ function savePlan(){
   checkWeeklyReduction();save();closeModal('plan-modal');render();showToast('✅','План сохранён','');
 }
 
-/* ── Profile modal ── */
+/* ── Profile ── */
 function openProfileModal(){
   document.getElementById('prof-name').value=d.name||'';
   document.querySelectorAll('#prof-emoji .ep-btn').forEach(b=>b.classList.toggle('sel',b.dataset.e===(d.avatar||'💪')));
@@ -1047,25 +1023,21 @@ function openProfileModal(){
 }
 function selProfEmoji(btn){document.querySelectorAll('#prof-emoji .ep-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel')}
 function saveProfile(){
-  const name=document.getElementById('prof-name').value.trim();
-  if(!name)return;
+  const name=document.getElementById('prof-name').value.trim();if(!name)return;
   d.name=name;
-  const sel=document.querySelector('#prof-emoji .ep-btn.sel');
-  if(sel)d.avatar=sel.dataset.e;
+  const sel=document.querySelector('#prof-emoji .ep-btn.sel');if(sel)d.avatar=sel.dataset.e;
   save();closeModal('profile-modal');render();pushLB();showToast('✅','Профиль сохранён','');
 }
 
-/* ── Price modal ── */
+/* ── Price & quote ── */
 function openPriceModal(){document.getElementById('price-inp').value=sets.price||24000;openModal('price-modal')}
-function savePrice(){const v=parseInt(document.getElementById('price-inp').value)||24000;sets.price=v;saveS();closeModal('price-modal');render();showToast('✅','Цена сохранена','1 сигарета = '+(v/20)+' сум')}
-
-/* ── Quote modal ── */
+function savePrice(){sets.price=parseInt(document.getElementById('price-inp').value)||24000;saveS();closeModal('price-modal');render();showToast('✅','Цена сохранена','')}
 function openCustomQuoteModal(){document.getElementById('quote-inp').value=sets.customQuote||'';openModal('quote-modal')}
-function saveCustomQuote(){sets.customQuote=document.getElementById('quote-inp').value.trim();saveS();closeModal('quote-modal');render();showToast('✅','Цитата сохранена','')}
+function saveCustomQuote(){sets.customQuote=document.getElementById('quote-inp').value.trim();saveS();closeModal('quote-modal');render()}
 function toggleQuote(){sets.showQuote=!sets.showQuote;saveS();render()}
 
-/* ── Settings helpers ── */
-function selFreq(btn){sets.freq=+btn.dataset.f;saveS();render();showToast('✅','Частота обновлена','')}
+/* ── Settings ── */
+function selFreq(btn){sets.freq=+btn.dataset.f;saveS();render()}
 function saveSettings(){sets.notifStart=document.getElementById('notif-start').value;sets.notifEnd=document.getElementById('notif-end').value;saveS()}
 function toggleNotif(){
   if(!('Notification' in window)){showToast('❌','Используйте Safari','');return}
@@ -1075,25 +1047,21 @@ function toggleNotif(){
     render();
   });
 }
-function leaveRoom(){if(!confirm('Выйти из комнаты?'))return;localStorage.removeItem('q3');location.reload()}
-function resetAll(){if(!confirm('Сбросить ВСЕ данные? Это нельзя отменить.'))return;d={};save();location.reload()}
+function leaveRoom(){if(!confirm('Выйти из комнаты?'))return;localStorage.removeItem('q5');location.replace(APP_URL)}
+function resetAll(){if(!confirm('Сбросить ВСЕ данные?'))return;localStorage.removeItem('q5');localStorage.removeItem('q5s');location.replace(APP_URL)}
 
 /* ── Notifications ── */
 function scheduleNotifs(){
   if(typeof Notification==='undefined'||Notification.permission!=='granted')return;
   const now=new Date(),h=now.getHours();
-  const [sh]=((sets.notifStart||'08:00').split(':').map(Number));
-  const [eh]=((sets.notifEnd||'23:00').split(':').map(Number));
+  const sh=parseInt((sets.notifStart||'08:00').split(':')[0]);
+  const eh=parseInt((sets.notifEnd||'23:00').split(':')[0]);
   const freq=sets.freq||1;
   if(h>=sh&&h<eh){
-    const shouldNotify=freq===0?(h===sh||h===eh-1):h%freq===0;
-    if(shouldNotify){
-      const today=todayKey();const log=(d.hourLog||{})[today]||{};
-      if(!(String(h) in log))new Notification('Бросаю курить 🚬',{body:`${pad(h)}:00 — ты курил? Отметь в приложении.`});
-    }
+    const ok=freq===0?(h===sh||h===eh-1):h%freq===0;
+    if(ok){const today=todayKey();const log=(d.hourLog||{})[today]||{};if(!(String(h) in log))new Notification('Бросаю курить 🚬',{body:`${pad(h)}:00 — ты курил? Отметь в приложении.`});}
   }
-  const msToNext=3600000-(now.getMinutes()*60000+now.getSeconds()*1000);
-  setTimeout(scheduleNotifs,msToNext);
+  setTimeout(scheduleNotifs,3600000-(now.getMinutes()*60000+now.getSeconds()*1000));
 }
 
 /* ── Modal helpers ── */
@@ -1104,24 +1072,19 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 /* ── Toast ── */
 let toastT;
 function showToast(icon,title,sub){
-  document.getElementById('ti').textContent=icon;
-  document.getElementById('tt').textContent=title;
-  document.getElementById('ts').textContent=sub;
-  const t=document.getElementById('toast');t.classList.add('show');
-  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);
+  document.getElementById('ti').textContent=icon;document.getElementById('tt').textContent=title;document.getElementById('ts').textContent=sub;
+  const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-/* ── Onboarding emoji helper ── */
-function selObEmoji(btn){document.querySelectorAll('#ob-emoji .ep-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');obEmoji=btn.dataset.e}
-
 /* ── Init ── */
+checkRoomInvite();
 if(d.name&&d.code){
   document.getElementById('ob-screen').style.display='none';
   document.getElementById('main-app').style.display='block';
   checkDayReset();checkWeeklyReduction();render();updateLB();
   if(Notification.permission==='granted')scheduleNotifs();
 }
-setInterval(()=>{if(d.name){render();}},30000);
+setInterval(()=>{if(d.name)render();},30000);
 setInterval(()=>{const lb=document.getElementById('lb-scr');if(lb&&lb.style.display!=='none')updateLB();},30000);
 </script>
 </body>
