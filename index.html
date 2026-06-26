@@ -7,6 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Бросаю">
 <title>Бросаю курить</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#0A0A0A;color:#fff;min-height:100vh;max-width:430px;margin:0 auto}
@@ -229,9 +230,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .toast.show{transform:translateY(0)}
 .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Splash screen ── */
+.splash{position:fixed;inset:0;background:#0A0A0A;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.5s ease}
+.splash.hidden{opacity:0;pointer-events:none}
+.splash-icon{font-size:80px;animation:splashPop 0.6s cubic-bezier(.34,1.56,.64,1) both}
+.splash-title{font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.5px;animation:splashFade 0.6s 0.2s ease both}
+.splash-sub{font-size:15px;color:#636366;animation:splashFade 0.6s 0.4s ease both}
+.splash-bar{width:120px;height:3px;background:#1C1C1E;border-radius:2px;margin-top:8px;overflow:hidden;animation:splashFade 0.6s 0.5s ease both}
+.splash-bar-fill{height:3px;background:var(--g);border-radius:2px;animation:splashLoad 1.2s 0.6s ease forwards}
+@keyframes splashPop{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes splashFade{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes splashLoad{0%{width:0}100%{width:100%}}
+
+/* ── Achievement popup ── */
+.achieve-popup{position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px)}
+.achieve-popup.show{display:flex}
+.achieve-box{background:#1C1C1E;border-radius:24px;padding:32px 24px;text-align:center;max-width:320px;width:calc(100% - 48px);animation:achievePop 0.5s cubic-bezier(.34,1.56,.64,1) both;border:1px solid rgba(48,209,88,0.3)}
+.achieve-emoji{font-size:64px;margin-bottom:12px;display:block}
+.achieve-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:6px}
+.achieve-sub{font-size:14px;color:#8E8E93;line-height:1.5;margin-bottom:20px}
+.achieve-btn{background:var(--g);border:none;border-radius:14px;padding:14px 32px;font-size:16px;font-weight:700;color:#000;cursor:pointer;font-family:inherit;width:100%}
+@keyframes achievePop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
 </style>
 </head>
 <body>
+
+<!-- Splash screen -->
+<div class="splash" id="splash">
+  <div class="splash-icon">🚭</div>
+  <div class="splash-title">Бросаю курить</div>
+  <div class="splash-sub">Соревнуйся с друзьями</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
+<!-- Achievement popup -->
+<div class="achieve-popup" id="achieve-popup">
+  <div class="achieve-box">
+    <span class="achieve-emoji" id="achieve-emoji">🏆</span>
+    <div class="achieve-title" id="achieve-title">Достижение!</div>
+    <div class="achieve-sub" id="achieve-sub"></div>
+    <button class="achieve-btn" onclick="closeAchieve()">Круто! 💪</button>
+  </div>
+</div>
 
 <div class="toast" id="toast">
   <div id="ti" style="font-size:22px;flex-shrink:0"></div>
@@ -482,7 +523,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
       <div class="crisis-item"><div class="crisis-icon">🎵</div><div><div class="crisis-name">Включи музыку</div><div class="crisis-desc">Отвлекись на любимую песню</div></div></div>
       <div class="crisis-item"><div class="crisis-icon">🏃</div><div><div class="crisis-name">Сделай 20 приседаний</div><div class="crisis-desc">Физическая активность снимает тягу</div></div></div>
     </div>
-    <button class="crisis-ok" onclick="hideCrisis()" type="button">Я справился! 💪</button>
+    <div style="display:flex;gap:10px;margin:0 16px">
+    <button style="flex:1;background:var(--card2);border:none;border-radius:14px;padding:14px;font-size:14px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit" onclick="hideCrisis()" type="button">← Назад</button>
+    <button style="flex:2;background:var(--g);border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;color:#000;cursor:pointer;font-family:inherit" onclick="hideCrisis()" type="button">Я справился! 💪</button>
+  </div>
     <div style="height:20px"></div>
   </div>
 
@@ -623,7 +667,7 @@ function formatMoney(n){if(n>=1000000)return(n/1000000).toFixed(1)+' млн';if(
 function save(){localStorage.setItem('q5',JSON.stringify(d))}
 function saveS(){localStorage.setItem('q5s',JSON.stringify(sets))}
 function genCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
-function roomLink(code){return APP_URL+'?room='+code}
+function roomLink(code){return 'https://t.me/quit_smoke_uz_bot/Quit?startapp='+code}
 
 /* ── Firebase REST API ── */
 async function fbGet(path){
@@ -649,21 +693,49 @@ async function fbPatch(path,data){
 /* ── Room link sharing ── */
 function shareLink(){
   const link=roomLink(d.code||'');
-  if(navigator.share){
-    navigator.share({title:'Бросаю курить',text:'Присоединяйся ко мне — бросаем курить вместе! 🚭',url:link}).catch(()=>{});
-  } else {
-    if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});
-    showToast('📋','Ссылка скопирована!','Отправь друзьям в WhatsApp или Telegram');
-  }
+  const text='Присоединяйся — бросаем курить вместе! 🚭';
+  try{
+    const tg=window.Telegram&&window.Telegram.WebApp;
+    if(tg){
+      const shareUrl='https://t.me/share/url?url='+encodeURIComponent(link)+'&text='+encodeURIComponent(text);
+      tg.openTelegramLink(shareUrl);
+      return;
+    }
+  }catch(e){}
+  if(navigator.share){navigator.share({title:'Бросаю курить',text,url:link}).catch(()=>{});}
+  else{if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});showToast('📋','Ссылка скопирована!',link);}
 }
 
 /* ── Check URL for room invite ── */
 function checkRoomInvite(){
-  const params=new URLSearchParams(window.location.search);
-  const roomCode=params.get('room');
+  let roomCode=null;
+
+  // 1. Telegram WebApp startapp parameter
+  try{
+    const tg=window.Telegram&&window.Telegram.WebApp;
+    if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param){
+      roomCode=tg.initDataUnsafe.start_param.toUpperCase();
+    }
+  }catch(e){}
+
+  // 2. URL hash #room=CODE
+  if(!roomCode&&window.location.hash){
+    const hash=window.location.hash.replace('#','');
+    const hp=new URLSearchParams(hash);
+    if(hp.get('room'))roomCode=hp.get('room').toUpperCase();
+    if(hp.get('startapp'))roomCode=hp.get('startapp').toUpperCase();
+  }
+
+  // 3. URL search ?room=CODE
+  if(!roomCode){
+    const params=new URLSearchParams(window.location.search);
+    if(params.get('room'))roomCode=params.get('room').toUpperCase();
+    if(params.get('startapp'))roomCode=params.get('startapp').toUpperCase();
+  }
+
   if(roomCode&&!d.name){
-    document.getElementById('inp-code').value=roomCode.toUpperCase();
-    showToast('🏆','Приглашение в комнату','Введи имя и нажми "Войти в комнату"');
+    document.getElementById('inp-code').value=roomCode;
+    showToast('🏆','Приглашение в комнату!','Введи имя и нажми "Войти в комнату"');
   }
 }
 
@@ -713,10 +785,18 @@ function startApp(){
 function checkDayReset(){
   const today=todayKey();
   if(d.lastDay&&d.lastDay!==today){
+    const prevLog=(d.hourLog||{})[d.lastDay]||{};
+    const prevSmoked=Object.values(prevLog).filter(v=>v&&v!==false).length;
+    const wasClean=prevSmoked===0;
     if((d.todaySmoked||0)>(d.currentLimit||20)){
       d.streak=0;d.currentLimit=Math.min(d.baseLimit||20,(d.currentLimit||20)+3);
     } else {
-      d.streak=(d.streak||0)+1;if(d.streak>d.record)d.record=d.streak;
+      const oldStreak=d.streak||0;
+      d.streak=oldStreak+1;
+      const isNewRecord=d.streak>=(d.record||0)&&d.streak>1;
+      if(d.streak>d.record)d.record=d.streak;
+      const days=Math.floor(minsSince(d.startDate)/1440);
+      setTimeout(()=>checkAchievements(days,isNewRecord,wasClean),2000);
     }
     d.todaySmoked=0;checkWeeklyReduction();
   }
@@ -726,7 +806,9 @@ function checkDayReset(){
 function checkWeeklyReduction(){
   if(!d.startDate)return;
   const weeks=Math.floor((new Date()-new Date(d.startDate))/(7*24*60*60*1000));
-  const newLimit=(d.baseLimit||20)-Math.floor(weeks*(d.stepDown||3)/(d.stepWeeks||2));
+  // Fix: integer division - reduce every stepWeeks weeks by stepDown
+  const reductions=Math.floor(weeks/(d.stepWeeks||2));
+  const newLimit=(d.baseLimit||20)-(reductions*(d.stepDown||3));
   d.currentLimit=Math.max(d.goalLimit||0,Math.min(d.baseLimit||20,newLimit));
   save();
 }
@@ -768,7 +850,12 @@ function getGreeting(){const h=new Date().getHours();return h<12?'Доброе �
 function render(){
   const mins=minsSince(d.startDate||new Date().toISOString());
   const days=Math.floor(mins/1440),hrs=Math.floor((mins%1440)/60),mn=Math.floor(mins%60);
-  const streak=d.streak||0,limit=d.currentLimit||20,smoked=d.todaySmoked||0;
+  // Sync todaySmoked from hourLog to avoid double-counting
+const today_k=todayKey();
+const todayLog=(d.hourLog||{})[today_k]||{};
+const syncedSmoked=Object.values(todayLog).filter(v=>v&&v!==false).length;
+if(syncedSmoked!==d.todaySmoked){d.todaySmoked=syncedSmoked;save();}
+const streak=d.streak||0,limit=d.currentLimit||20,smoked=d.todaySmoked||0;
   const priceCig=(sets.price||24000)/20;
   const notSmoked=Math.max(0,days*limit-smoked);
   const saved=Math.round(notSmoked*priceCig);
@@ -904,11 +991,14 @@ function selTrig(btn){
   const cb=document.getElementById('trig-confirm');cb.disabled=false;cb.style.opacity='1';
 }
 function confirmLog(){
-  d.todaySmoked=(d.todaySmoked||0)+1;
   const today=todayKey(),h=new Date().getHours();
   if(!d.hourLog)d.hourLog={};
   if(!d.hourLog[today])d.hourLog[today]={};
-  d.hourLog[today][String(h)]=selTrigVal||'❓ Другое';
+  // Use unique key with timestamp to allow multiple logs per hour
+  const key=String(h)+'_'+Date.now();
+  d.hourLog[today][key]=selTrigVal||'❓ Другое';
+  // Recalculate from hourLog (single source of truth)
+  d.todaySmoked=Object.values(d.hourLog[today]).filter(v=>v&&v!==false).length;
   save();closeModal('trigger-modal');
   if(d.todaySmoked>(d.currentLimit||20)){render();setTimeout(()=>triggerPenalty(),200);}
   else{showToast('🚬','Записано',`Осталось ${(d.currentLimit||20)-d.todaySmoked} из ${d.currentLimit||20}`);render();pushLB();}
@@ -934,8 +1024,9 @@ function saveHourLog(h,val){
   if(!d.hourLog)d.hourLog={};
   if(!d.hourLog[today])d.hourLog[today]={};
   d.hourLog[today][String(h)]=val;
+  // Recalculate from hourLog (single source of truth)
+  d.todaySmoked=Object.values(d.hourLog[today]).filter(v=>v&&v!==false).length;
   if(val){
-    d.todaySmoked=(d.todaySmoked||0)+1;
     if(d.todaySmoked>(d.currentLimit||20)){save();render();setTimeout(()=>triggerPenalty(),200);return;}
     showToast('🚬','Записано',`${pad(h)}:00 — курил`);
   } else showToast('✅','Молодец!',`${pad(h)}:00 — держался 💪`);
@@ -982,7 +1073,10 @@ function showScreen(s){
   document.getElementById('crisis-scr').style.display='none';
   if(map[s])document.getElementById(map[s]).style.display='block';
   ['home','stats','lb','jour'].forEach(x=>{const el=document.getElementById('nb-'+x);if(el)el.classList.toggle('active',x===s);});
-  if(s==='lb')updateLB();
+  if(s==='lb'){
+    document.getElementById('lb-list').innerHTML='<div style="text-align:center;padding:30px;color:var(--t3)">Обновляем... <span class="spinner"></span></div>';
+    updateLB();
+  }
   render();
 }
 
@@ -1077,15 +1171,78 @@ function showToast(icon,title,sub){
 }
 
 /* ── Init ── */
+/* ── Achievement system ── */
+const ACHIEVEMENTS=[
+  {id:'day1',   days:1,  emoji:'🌱', title:'Первый день!',     sub:'Ты продержался целый день без сигареты. Это начало!'},
+  {id:'day3',   days:3,  emoji:'💪', title:'3 дня без дыма!',  sub:'Твои лёгкие уже начали восстанавливаться.'},
+  {id:'day5',   days:5,  emoji:'🔥', title:'5 дней подряд!',   sub:'Серия набирает силу. Не останавливайся!'},
+  {id:'day7',   days:7,  emoji:'🏅', title:'Целая неделя!',    sub:'7 дней — это уже привычка. Ты молодец!'},
+  {id:'day14',  days:14, emoji:'🥈', title:'Две недели!',      sub:'Никотиновая зависимость значительно ослабла.'},
+  {id:'day30',  days:30, emoji:'🏆', title:'Месяц без курения!',sub:'Невероятно! Ты изменил свою жизнь навсегда.'},
+  {id:'record', days:-1, emoji:'⭐', title:'Новый рекорд!',    sub:'Ты побил свой личный рекорд. Продолжай!'},
+  {id:'clean',  days:-2, emoji:'🎯', title:'Идеальный день!',  sub:'Весь день без единой сигареты. Так держать!'},
+];
+
+function checkAchievements(days, isNewRecord, isCleanDay){
+  const unlocked=d.unlockedAchievements||[];
+  let toShow=null;
+  // Check day milestones
+  for(const a of ACHIEVEMENTS){
+    if(a.days>0&&days>=a.days&&!unlocked.includes(a.id)){
+      toShow=a;break;
+    }
+  }
+  // Check record
+  if(!toShow&&isNewRecord&&!unlocked.includes('record')){
+    toShow=ACHIEVEMENTS.find(a=>a.id==='record');
+  }
+  // Check clean day
+  if(!toShow&&isCleanDay&&!unlocked.includes('clean_'+todayKey())){
+    toShow=ACHIEVEMENTS.find(a=>a.id==='clean');
+    if(toShow){
+      // Mark per-day so it can fire again on a new clean day
+      d.unlockedAchievements=(d.unlockedAchievements||[]);
+      d.unlockedAchievements.push('clean_'+todayKey());
+      save();
+    }
+  }
+  if(toShow&&toShow.days>0){
+    d.unlockedAchievements=(d.unlockedAchievements||[]);
+    if(!d.unlockedAchievements.includes(toShow.id)){
+      d.unlockedAchievements.push(toShow.id);
+      save();
+    }
+  }
+  if(toShow)showAchievement(toShow);
+}
+
+function showAchievement(a){
+  document.getElementById('achieve-emoji').textContent=a.emoji;
+  document.getElementById('achieve-title').textContent=a.title;
+  document.getElementById('achieve-sub').textContent=a.sub;
+  document.getElementById('achieve-popup').classList.add('show');
+}
+function closeAchieve(){document.getElementById('achieve-popup').classList.remove('show');}
+
+/* ── Splash screen ── */
+function hideSplash(){
+  const splash=document.getElementById('splash');
+  if(splash){splash.classList.add('hidden');setTimeout(()=>splash.remove(),600);}
+}
+
 checkRoomInvite();
 if(d.name&&d.code){
   document.getElementById('ob-screen').style.display='none';
   document.getElementById('main-app').style.display='block';
   checkDayReset();checkWeeklyReduction();render();updateLB();
   if(Notification.permission==='granted')scheduleNotifs();
+  setTimeout(hideSplash,1500);
+} else {
+  setTimeout(hideSplash,1500);
 }
 setInterval(()=>{if(d.name)render();},30000);
-setInterval(()=>{const lb=document.getElementById('lb-scr');if(lb&&lb.style.display!=='none')updateLB();},30000);
+// Only refresh LB when tab is visible
+setInterval(()=>{const lb=document.getElementById('lb-scr');if(lb&&lb.style.display!=='none')updateLB();},15000);
 </script>
 </body>
 </html>
