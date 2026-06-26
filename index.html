@@ -415,8 +415,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
     <div class="scr-hdr"><div class="scr-title">🏆 Рейтинг</div><div style="font-size:13px;color:var(--t2);margin-top:2px" id="lb-room-lbl">Комната: ——</div></div>
     <div class="lb-inv">
       <div class="lb-inv-title">Пригласи друзей</div>
-      <div class="lb-inv-sub">Они нажмут ссылку и сразу войдут в комнату</div>
-      <div class="lb-link" id="lb-link-show">—</div>
+      <div class="lb-inv-sub">Отправь ссылку или скажи код — они войдут в твою комнату</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="flex:1;background:#081A08;border-radius:10px;padding:10px 12px;border:0.5px solid rgba(48,209,88,0.2)">
+          <div style="font-size:10px;color:var(--t3);margin-bottom:2px">КОД КОМНАТЫ</div>
+          <div style="font-size:22px;font-weight:700;color:var(--g);letter-spacing:4px" id="lb-code-big">——</div>
+        </div>
+        <button style="background:var(--card2);border:0.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;white-space:nowrap" onclick="copyCode()" type="button">📋 Код</button>
+      </div>
       <button class="lb-copy" onclick="shareLink()" type="button">📤 Поделиться ссылкой</button>
     </div>
     <div class="lb-list" id="lb-list"><div style="text-align:center;padding:30px;color:var(--t3)">Загружаем... <span class="spinner"></span></div></div>
@@ -667,7 +673,10 @@ function formatMoney(n){if(n>=1000000)return(n/1000000).toFixed(1)+' млн';if(
 function save(){localStorage.setItem('q5',JSON.stringify(d))}
 function saveS(){localStorage.setItem('q5s',JSON.stringify(sets))}
 function genCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
-function roomLink(code){return 'https://t.me/quit_smoke_uz_bot/Quit?startapp='+code}
+function roomLink(code){
+  // Telegram passes startapp param only via bot link format
+  return 'https://t.me/quit_smoke_uz_bot?startapp='+code;
+}
 
 /* ── Firebase REST API ── */
 async function fbGet(path){
@@ -692,29 +701,44 @@ async function fbPatch(path,data){
 
 /* ── Room link sharing ── */
 function shareLink(){
-  const link=roomLink(d.code||'');
-  const text='Присоединяйся — бросаем курить вместе! 🚭';
+  const code=d.code||'';
+  const link=roomLink(code);
+  const text='Присоединяйся — бросаем курить вместе! Код комнаты: '+code+' 🚭\n'+link;
   try{
     const tg=window.Telegram&&window.Telegram.WebApp;
     if(tg){
-      const shareUrl='https://t.me/share/url?url='+encodeURIComponent(link)+'&text='+encodeURIComponent(text);
-      tg.openTelegramLink(shareUrl);
+      // Use switchInlineQuery or openTelegramLink for proper startapp support
+      try{
+        tg.switchInlineQuery('join_'+code,['users','groups']);
+      }catch(e2){}
+      // Also copy to clipboard as backup
+      if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});
+      showToast('📋','Ссылка скопирована!','Отправь другу: '+link);
       return;
     }
   }catch(e){}
   if(navigator.share){navigator.share({title:'Бросаю курить',text,url:link}).catch(()=>{});}
-  else{if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});showToast('📋','Ссылка скопирована!',link);}
+  else{if(navigator.clipboard)navigator.clipboard.writeText(link).catch(()=>{});showToast('📋','Скопировано!',link);}
 }
 
 /* ── Check URL for room invite ── */
 function checkRoomInvite(){
   let roomCode=null;
 
-  // 1. Telegram WebApp startapp parameter
+  // 1. Telegram WebApp startapp parameter (most reliable)
   try{
     const tg=window.Telegram&&window.Telegram.WebApp;
-    if(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param){
-      roomCode=tg.initDataUnsafe.start_param.toUpperCase();
+    if(tg){
+      // Try initDataUnsafe first
+      if(tg.initDataUnsafe&&tg.initDataUnsafe.start_param){
+        roomCode=tg.initDataUnsafe.start_param.toUpperCase().replace('JOIN_','');
+      }
+      // Try parsing initData string directly
+      if(!roomCode&&tg.initData){
+        const params=new URLSearchParams(tg.initData);
+        const sp=params.get('start_param');
+        if(sp)roomCode=sp.toUpperCase().replace('JOIN_','');
+      }
     }
   }catch(e){}
 
@@ -819,7 +843,8 @@ async function updateLB(){
   await pushLB();
   const link=roomLink(d.code);
   document.getElementById('lb-room-lbl').textContent='Комната: '+d.code;
-  document.getElementById('lb-link-show').textContent=link;
+  const lls=document.getElementById('lb-link-show');if(lls)lls.textContent=link;
+  const lbc=document.getElementById('lb-code-big');if(lbc)lbc.textContent=d.code||'——';
   const members=await fbGet('/rooms/'+d.code+'/members');
   const el=document.getElementById('lb-list');
   if(!members){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3)">Нет соединения с сервером</div>';return}
