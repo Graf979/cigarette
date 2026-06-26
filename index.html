@@ -131,6 +131,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 .lb-unit{font-size:10px;color:var(--t3)}
 .hour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 16px}
 .hcard{background:var(--card);border-radius:13px;padding:12px;border:0.5px solid var(--border);cursor:pointer}
+.cal-grid-mini{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day-mini{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:11px;cursor:pointer;font-weight:500}
 .hcard.smk{border-color:rgba(255,69,58,0.4);background:#1A0808}
 .hcard.cln{border-color:rgba(48,209,88,0.3);background:#081A08}
 .hcard.fut{opacity:0.35;cursor:default}
@@ -281,10 +283,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 
 <!-- Onboarding -->
 <div id="ob-screen">
-  <div class="ob" id="ob-start">
+  <!-- Step 1: Name & avatar -->
+  <div class="ob" id="ob-step1">
     <div class="ob-icon">🚭</div>
     <div class="ob-title">Бросаю курить</div>
     <div class="ob-sub">Соревнуйся с друзьями — кто дольше продержится без сигареты</div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:8px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#2C2C2E"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#2C2C2E"></div>
+    </div>
     <div class="ob-form">
       <div><label class="flbl">Твоё имя</label><input class="finp" id="inp-name" placeholder="Например: Алишер" maxlength="20"/></div>
       <div><label class="flbl">Эмодзи-аватар</label>
@@ -297,10 +305,65 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
           <button class="ep-btn" data-e="🌟" onclick="selObEmoji(this)" type="button">🌟</button>
         </div>
       </div>
+      <button class="btn-g" onclick="goStep2()" type="button">Далее →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Start date -->
+  <div class="ob" id="ob-step2" style="display:none">
+    <div class="ob-icon">📅</div>
+    <div class="ob-title">Когда ты начал?</div>
+    <div class="ob-sub">Укажи дату чтобы счётчик показал реальный прогресс</div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:8px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#2C2C2E"></div>
+    </div>
+    <div class="ob-form">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div id="date-opt-now" onclick="selDateOpt('now')" style="background:var(--card);border-radius:13px;padding:13px 14px;border:0.5px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer">
+          <div style="font-size:22px">⚡</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff">Только что бросаю</div><div style="font-size:12px;color:var(--t3);margin-top:1px">Начинаем счёт с этой минуты</div></div>
+        </div>
+        <div id="date-opt-today" onclick="selDateOpt('today')" style="background:var(--card);border-radius:13px;padding:13px 14px;border:0.5px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer">
+          <div style="font-size:22px">🌅</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff">Сегодня утром</div><div style="font-size:12px;color:var(--t3);margin-top:1px">С начала сегодняшнего дня</div></div>
+        </div>
+        <div id="date-opt-custom" onclick="selDateOpt('custom')" style="background:var(--card);border-radius:13px;padding:13px 14px;border:0.5px solid var(--border);cursor:pointer">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:0" id="date-custom-top">
+            <div style="font-size:22px">📅</div>
+            <div><div style="font-size:14px;font-weight:600;color:#fff">Уже не курю несколько дней</div><div style="font-size:12px;color:var(--t3);margin-top:1px">Укажи точную дату начала</div></div>
+          </div>
+          <div id="date-custom-picker" style="display:none;margin-top:12px">
+            <input class="finp" type="date" id="inp-start-date" style="margin-bottom:10px" onchange="updateDayPreview()"/>
+            <div id="day-preview" style="background:#0A0A0A;border-radius:10px;padding:10px;text-align:center;border:0.5px solid rgba(48,209,88,0.2);display:none">
+              <div style="font-size:12px;color:var(--t3);margin-bottom:3px">Ты не куришь уже</div>
+              <div style="font-size:22px;font-weight:700;color:#30D158" id="day-preview-num">0 дней 🔥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-g" onclick="goStep3()" type="button">Продолжить →</button>
+      <button class="btn-d" onclick="goBackStep1()" type="button">← Назад</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Room -->
+  <div class="ob" id="ob-step3" style="display:none">
+    <div class="ob-icon">🏆</div>
+    <div class="ob-title">Соревнование</div>
+    <div class="ob-sub">Создай комнату или войди к другу</div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:8px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#30D158"></div>
+    </div>
+    <div class="ob-form">
       <button class="btn-g" onclick="createRoom()" type="button">🏆 Создать комнату</button>
       <div class="div-row"><div class="div-line"></div><div class="div-txt">или</div><div class="div-line"></div></div>
       <div><label class="flbl">Код комнаты друга</label><input class="finp" id="inp-code" placeholder="Например: ABC123" maxlength="6" style="text-transform:uppercase;letter-spacing:2px"/></div>
       <button class="btn-d" onclick="joinRoom()" type="button">Войти в комнату</button>
+      <button class="btn-d" onclick="goBackStep2()" type="button" style="margin-top:-4px">← Назад</button>
     </div>
   </div>
   <div class="ob" id="ob-created" style="display:none">
@@ -335,26 +398,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
           </button>
         </div>
       </div>
-      <div class="ring-wrap">
-        <svg width="150" height="150" viewBox="0 0 150 150">
-          <circle cx="75" cy="75" r="62" fill="none" stroke="#1C1C1E" stroke-width="10"/>
-          <circle id="ring-fill" cx="75" cy="75" r="62" fill="none" stroke="#30D158" stroke-width="10"
-            stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"
-            transform="rotate(-90 75 75)" style="transition:stroke-dashoffset 1s ease"/>
-          <text id="ring-num" x="75" y="68" text-anchor="middle" font-size="36" font-weight="700" fill="#fff">0</text>
-          <text x="75" y="88" text-anchor="middle" font-size="11" fill="#8E8E93">дней</text>
-          <text id="ring-sub" x="75" y="104" text-anchor="middle" font-size="10" fill="#636366">0 ч · 0 мин</text>
+      <!-- Ring left + quote right -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:4px">
+        <svg width="110" height="110" viewBox="0 0 110 110" style="flex-shrink:0">
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#1C1C1E" stroke-width="8"/>
+          <circle id="ring-fill" cx="55" cy="55" r="46" fill="none" stroke="#30D158" stroke-width="8"
+            stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"
+            transform="rotate(-90 55 55)" style="transition:stroke-dashoffset 1s ease"/>
+          <text id="ring-num" x="55" y="50" text-anchor="middle" font-size="28" font-weight="700" fill="#fff">0</text>
+          <text x="55" y="65" text-anchor="middle" font-size="9" fill="#8E8E93">дней</text>
+          <text id="ring-sub" x="55" y="78" text-anchor="middle" font-size="8" fill="#636366">0 ч · 0 мин</text>
         </svg>
-        <div class="ring-tag" id="ring-tag">Начни прямо сейчас 💪</div>
+        <div style="flex:1;min-width:0">
+          <div class="ring-tag" id="ring-tag" style="margin-bottom:10px">Начни прямо сейчас 💪</div>
+          <div style="background:var(--card);border-radius:10px;padding:10px;border:0.5px solid var(--border)">
+            <div style="font-size:10px;color:var(--t3);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.4px">Помни</div>
+            <div style="font-size:12px;color:var(--t2);line-height:1.5;font-style:italic" id="home-quote">"Будь честен хотя бы перед собой."</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="goal-card">
-      <div class="goal-top">
-        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">🎯</span><span class="goal-lbl">Цель на сегодня</span></div>
-        <span class="goal-time" id="goal-time">0 ч из 24</span>
+    <div style="margin:8px 16px 0;background:#081A08;border-radius:10px;padding:8px 12px;border:0.5px solid rgba(48,209,88,0.2);display:flex;align-items:center;gap:10px">
+      <span style="font-size:14px;flex-shrink:0">🎯</span>
+      <div style="flex:1;min-width:0">
+        <div style="height:4px;background:#0F2C0F;border-radius:2px;margin-bottom:4px">
+          <div id="goal-bar" style="height:4px;width:0%;background:#30D158;border-radius:2px;transition:width 0.6s ease"></div>
+        </div>
+        <div style="font-size:11px;color:var(--t3)" id="goal-sub">Пройди весь день без единой сигареты</div>
       </div>
-      <div class="goal-bar-wrap"><div class="goal-bar" id="goal-bar" style="width:0%"></div></div>
-      <div class="goal-sub" id="goal-sub">Пройди весь день без единой сигареты</div>
+      <div style="font-size:12px;font-weight:700;color:#30D158;flex-shrink:0" id="goal-time">0%</div>
     </div>
     <div class="cig-card">
       <div class="cig-top">
@@ -365,8 +437,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
         <div class="cig-right"><div class="cig-lim" id="cig-lim">Лимит: 20</div><div class="mini-bars" id="mini-bars"></div></div>
       </div>
       <div class="cig-btns">
-        <button class="btn-log" id="log-btn" onclick="openTriggerModal()" type="button">+ Записать сигарету</button>
-        <button class="btn-help" onclick="showCrisis()" type="button">🆘 Помощь</button>
+        <button class="btn-log" id="log-btn" onclick="openTriggerModal()" type="button" style="width:100%">+ Записать сигарету</button>
       </div>
     </div>
     <div class="pen-mini">
@@ -379,7 +450,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
         </div>
       </div>
     </div>
-    <div class="quote-card" id="quote-card"><div class="quote-txt" id="quote-txt"></div></div>
+    <!-- Not smoked total -->
+    <div style="margin:8px 16px 0;background:var(--card);border-radius:12px;padding:11px 14px;border:0.5px solid var(--border);text-align:center">
+      <div style="font-size:13px;font-weight:600;color:var(--b)" id="not-smoked-total">Ты не выкурил 0 сигарет 🚭</div>
+    </div>
+    <!-- Help block -->
+    <div onclick="showCrisis()" style="margin:8px 16px 0;background:#1A0808;border-radius:14px;padding:14px;border:0.5px solid rgba(255,69,58,0.2);display:flex;align-items:center;gap:12px;cursor:pointer">
+      <div style="font-size:28px;flex-shrink:0">🆘</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--r);margin-bottom:2px">Хочется курить?</div>
+        <div style="font-size:12px;color:var(--t3)">Тяга проходит за 5 минут — я помогу</div>
+      </div>
+      <div style="width:7px;height:12px;border-right:1.5px solid var(--t3);border-top:1.5px solid var(--t3);transform:rotate(45deg);flex-shrink:0"></div>
+    </div>
+    <div class="quote-card" id="quote-card" style="display:none"><div class="quote-txt" id="quote-txt"></div></div>
     <div style="height:10px"></div>
   </div>
 
@@ -430,8 +514,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 
   <!-- Journal -->
   <div class="jour-scr" id="jour-scr">
-    <div class="scr-hdr"><div class="scr-title">Почасовой журнал</div><div style="font-size:13px;color:var(--t2);margin-top:2px" id="jour-date">—</div></div>
-    <div style="display:flex;justify-content:space-between;padding:8px 16px 0"><div style="font-size:13px;color:var(--t2)" id="jour-summary">—</div><div style="font-size:13px;font-weight:600;color:var(--r)" id="jour-smoked">—</div></div>
+    <div style="background:#0A0A0A;padding:18px 16px 12px;border-bottom:0.5px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="font-size:20px;font-weight:700;color:#fff">Журнал</div>
+        <div style="font-size:12px;color:var(--t3)" id="jour-month-lbl">Июнь 2025</div>
+      </div>
+      <!-- Mini calendar -->
+      <div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px">
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Пн</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Вт</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Ср</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Чт</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Пт</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Сб</div>
+          <div style="text-align:center;font-size:10px;color:var(--t3);padding:2px 0">Вс</div>
+        </div>
+        <div class="cal-grid-mini" id="jour-cal-grid"></div>
+        <!-- Legend -->
+        <div style="display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:rgba(48,209,88,0.5)"></div><span style="font-size:10px;color:var(--t3)">Чистый</span></div>
+          <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,159,10,0.5)"></div><span style="font-size:10px;color:var(--t3)">В норме</span></div>
+          <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,69,58,0.5)"></div><span style="font-size:10px;color:var(--t3)">Срыв</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Selected day -->
+    <div style="padding:10px 16px 0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:13px;font-weight:600;color:#fff" id="jour-date">Сегодня</div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button onclick="jourNavDay(-1)" style="font-size:13px;color:var(--g);background:none;border:none;cursor:pointer;font-family:inherit;padding:4px">← Вчера</button>
+          <button onclick="jourNavDay(1)" id="jour-nav-next" style="font-size:13px;color:var(--t3);background:none;border:none;cursor:pointer;font-family:inherit;padding:4px">Завтра →</button>
+        </div>
+      </div>
+      <!-- Day summary -->
+      <div style="background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;gap:0;border:0.5px solid var(--border)" id="jour-day-summary">
+        <div style="flex:1;text-align:center;border-right:0.5px solid var(--border)">
+          <div style="font-size:18px;font-weight:700;color:var(--g)" id="jour-sum-smoked">0</div>
+          <div style="font-size:10px;color:var(--t3);margin-top:1px">выкурено</div>
+        </div>
+        <div style="flex:1;text-align:center;border-right:0.5px solid var(--border)">
+          <div style="font-size:18px;font-weight:700;color:var(--b)" id="jour-sum-clean">0</div>
+          <div style="font-size:10px;color:var(--t3);margin-top:1px">чистых ч.</div>
+        </div>
+        <div style="flex:1;text-align:center">
+          <div style="font-size:15px;font-weight:700;color:var(--a)" id="jour-sum-saved">0</div>
+          <div style="font-size:10px;color:var(--t3);margin-top:1px">сум сэкон.</div>
+        </div>
+      </div>
+    </div>
     <div class="hour-grid" id="hour-grid"></div>
   </div>
 
@@ -650,7 +782,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;ba
 const FB_URL='https://quit-smoke-16426-default-rtdb.firebaseio.com';
 const APP_URL='https://t.me/quit_smoke_uz_bot/Quit';
 
-const QUOTES=['"Падать не стыдно. Стыдно не подниматься."','"Каждый новый день — шанс стать лучше."','"Сила воли — мышца. Тренируй её."','"Ты уже доказал что можешь. Докажи снова."','"Срыв — часть пути, не конец."','"Лёгких путей нет. Есть пути стоящие усилий."','"Твоё тело говорит тебе спасибо каждый час."'];
+const QUOTES=[
+  '"Будь честен хотя бы перед собой."',
+  '"Каждый час без сигареты — победа над собой."',
+  '"Сила воли — это мышца. Тренируй её каждый день."',
+  '"Твоё тело восстанавливается прямо сейчас."',
+  '"Падать не стыдно. Стыдно не подниматься."',
+  '"Ты сильнее этой привычки — докажи это снова."',
+  '"Честность с собой — первый шаг к свободе."',
+  '"Никотин лжёт тебе. Ты справишься без него."',
+  '"Каждый день без дыма — день выигранный у болезни."',
+  '"Трудно сейчас — значит ты растёшь."',
+  '"Не ищи причин закурить. Ищи причины держаться."',
+  '"Твои лёгкие уже начали дышать свободнее."',
+  '"Один день — один выбор. Сегодня выбери себя."',
+  '"Слабость просит сигарету. Сила говорит нет."',
+];
 const HOURS=Array.from({length:16},(_,i)=>i+8);
 const MEDALS=['🥇','🥈','🥉'];
 const COLORS=['rgba(48,209,88,0.15)','rgba(255,159,10,0.15)','rgba(10,132,255,0.15)','rgba(255,69,58,0.15)','rgba(191,90,242,0.15)'];
@@ -760,6 +907,7 @@ function checkRoomInvite(){
   if(roomCode&&!d.name){
     document.getElementById('inp-code').value=roomCode;
     showToast('🏆','Приглашение в комнату!','Введи имя и нажми "Войти в комнату"');
+    // Auto-advance to step 3 if name entered
   }
 }
 
@@ -770,7 +918,11 @@ async function createRoom(){
   const name=document.getElementById('inp-name').value.trim();
   if(!name){document.getElementById('inp-name').focus();return}
   const code=genCode(),userId='u_'+Date.now();
-  d={name,avatar:obEmoji,code,userId,startDate:new Date().toISOString(),streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
+  const startDate=getStartDate();
+  d={name,avatar:obEmoji,code,userId,startDate,streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
+  // Calculate streak from start date
+  const daysSinceStart=Math.floor((new Date()-new Date(startDate))/864e5);
+  if(daysSinceStart>0){d.streak=daysSinceStart;d.record=daysSinceStart;}
   save();
   showToast('⏳','Создаём комнату...','');
   const member={name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0};
@@ -791,7 +943,10 @@ async function joinRoom(){
   const room=await fbGet('/rooms/'+code);
   if(!room){showToast('❌','Комната не найдена','Проверь код или ссылку');return}
   const userId='u_'+Date.now();
-  d={name,avatar:obEmoji,code,userId,startDate:new Date().toISOString(),streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
+  const startDateJ=getStartDate();
+  d={name,avatar:obEmoji,code,userId,startDate:startDateJ,streak:0,record:0,todaySmoked:0,baseLimit:20,currentLimit:20,goalLimit:0,stepDown:3,stepWeeks:2,lastDay:todayKey(),hourLog:{},slipHistory:[]};
+  const daysSinceJ=Math.floor((new Date()-new Date(startDateJ))/864e5);
+  if(daysSinceJ>0){d.streak=daysSinceJ;d.record=daysSinceJ;}
   save();
   await fbSet('/rooms/'+code+'/members/'+userId,{name,avatar:obEmoji,userId,startDate:d.startDate,streak:0,days:0});
   showToast('✅','Добро пожаловать!','Ты в комнате '+code);
@@ -889,17 +1044,18 @@ const streak=d.streak||0,limit=d.currentLimit||20,smoked=d.todaySmoked||0;
   document.getElementById('hdr-name').textContent=d.name||'...';
   document.getElementById('streak-txt').textContent=streak+' '+(streak===1?'день':streak<5?'дня':'дней');
 
-  const circ=389.6;
-  document.getElementById('ring-fill').style.strokeDashoffset=circ-Math.min(circ,circ*days/30);
+  const circ=289;
+  document.getElementById('ring-fill').style.strokeDashoffset=circ-Math.min(circ,circ*Math.min(days,30)/30);
   document.getElementById('ring-num').textContent=days;
   document.getElementById('ring-sub').textContent=hrs+' ч · '+mn+' мин';
   const tags=['Начни прямо сейчас 💪','Ты справляешься! 💪','Отличная работа! 🔥','Ты — машина! 🏆','Легенда! 🌟'];
   document.getElementById('ring-tag').textContent=tags[Math.min(Math.floor(days/3),tags.length-1)];
 
   const nowH=new Date().getHours();
-  document.getElementById('goal-bar').style.width=Math.min(100,Math.round(nowH/24*100))+'%';
-  document.getElementById('goal-time').textContent=nowH+' ч из 24';
-  document.getElementById('goal-sub').textContent=smoked===0?`Держишься ${nowH} часов! Осталось ${24-nowH} ч`:`Выкурено ${smoked} — лимит ${limit} сиг.`;
+  const goalPct=Math.min(100,Math.round(nowH/24*100));
+  document.getElementById('goal-bar').style.width=goalPct+'%';
+  document.getElementById('goal-time').textContent=goalPct+'%';
+  document.getElementById('goal-sub').textContent=smoked===0?`${nowH} ч — держишься! Осталось ${24-nowH} ч`:`Выкурено ${smoked} из ${limit}`;
 
   const isOver=smoked>limit;
   const numEl=document.getElementById('cig-num');
@@ -918,10 +1074,15 @@ const streak=d.streak||0,limit=d.currentLimit||20,smoked=d.todaySmoked||0;
   document.getElementById('pm-days').textContent=streak+' дн.';
   document.getElementById('pm-money').textContent=formatMoney(saved);
   document.getElementById('pm-lim').textContent='+3';
+  // Not smoked counter
+  const notSmokedTotal=calcNotSmoked();
+  const nsEl=document.getElementById('not-smoked-total');
+  if(nsEl)nsEl.textContent='Ты не выкурил '+notSmokedTotal+' сигарет 🚭';
 
+  const qEl=document.getElementById('home-quote');
+  if(qEl)qEl.textContent=sets.customQuote||QUOTES[days%QUOTES.length];
   const qCard=document.getElementById('quote-card');
-  if(sets.showQuote){qCard.style.display='block';document.getElementById('quote-txt').textContent=sets.customQuote||QUOTES[days%QUOTES.length];}
-  else qCard.style.display='none';
+  if(qCard)qCard.style.display='none';
 
   renderStats();renderJour();
   document.getElementById('av-circle').textContent=d.avatar||'💪';
@@ -986,19 +1147,51 @@ function renderStats(){
 }
 
 function renderJour(){
-  const today=todayKey(),log=(d.hourLog||{})[today]||{},nowH=new Date().getHours();
-  const answered=Object.keys(log).length;
-  const smoked=Object.values(log).filter(v=>v&&v!==false).length;
-  document.getElementById('jour-summary').textContent=`Отмечено: ${answered} / ${HOURS.filter(h=>h<=nowH).length}`;
-  document.getElementById('jour-smoked').textContent=`Выкурено: ${smoked}`;
-  document.getElementById('jour-date').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+  if(!jourViewDate)jourViewDate=new Date();
+  const viewKey=jourViewDate.getFullYear()+'-'+(jourViewDate.getMonth()+1)+'-'+jourViewDate.getDate();
+  const todayK=todayKey();
+  const isToday=viewKey===todayK;
+  const nowH=new Date().getHours();
+  const log=(d.hourLog||{})[viewKey]||{};
+  const smokedCount=Object.values(log).filter(v=>v&&v!==false).length;
+  const cleanCount=Object.values(log).filter(v=>v===false).length;
+  const priceCig=(sets.price||24000)/20;
+  const savedToday=Math.round(cleanCount*priceCig);
+
+  // Update date label
+  const dateEl=document.getElementById('jour-date');
+  if(dateEl)dateEl.textContent=isToday?'Сегодня':jourViewDate.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+  // Update nav buttons
+  const nextBtn=document.getElementById('jour-nav-next');
+  if(nextBtn)nextBtn.style.color=isToday?'var(--t3)':'var(--g)';
+  // Update summary
+  const ss=document.getElementById('jour-sum-smoked');if(ss)ss.textContent=smokedCount;
+  const sc=document.getElementById('jour-sum-clean');if(sc)sc.textContent=cleanCount;
+  const sv=document.getElementById('jour-sum-saved');if(sv)sv.textContent=savedToday>=1000?Math.round(savedToday/1000)+'тыс':savedToday;
+  ss&&(ss.style.color=smokedCount===0?'var(--g)':smokedCount>=(d.currentLimit||20)?'var(--r)':'var(--a)');
+
+  // Render calendar
+  renderJourCalendar();
+
+  // Render hours
   document.getElementById('hour-grid').innerHTML=HOURS.map(h=>{
-    const k=String(h),logged=k in log,val=log[k],fut=h>nowH,smokedH=val&&val!==false;
-    let cls='hcard',st='',btns='';
+    const k=String(h),val=log[k],logged=k in log;
+    const smokedH=val&&val!==false;
+    const fut=isToday&&h>nowH;
+    let cls='hcard',st='',extra='';
     if(fut){cls+=' fut';st='Ещё не наступил';}
-    else if(logged){cls+=smokedH?' smk':' cln';st=smokedH?'🚬 Курил':'✅ Держался';}
-    else{st=h===nowH?'⏱ Сейчас':'Не отмечено';btns=`<div class="hbtns"><button class="hbtn hbtn-s" onclick="event.stopPropagation();quickLogH(${h},true)" type="button">🚬</button><button class="hbtn hbtn-c" onclick="event.stopPropagation();quickLogH(${h},false)" type="button">✅</button></div>`;}
-    return`<div class="${cls}" onclick="${!fut&&!logged?`openHourModal(${h})`:''}"><div class="htime">${pad(h)}:00</div><div class="hstatus">${st}</div>${btns}</div>`;
+    else if(logged){
+      cls+=smokedH?' smk':' cln';
+      st=smokedH?'🚬 Курил':'✅ Держался';
+      if(smokedH&&typeof val==='string')extra=`<div style="font-size:10px;color:var(--t3);margin-top:2px">${val}</div>`;
+      // Switchable: show toggle hint
+      extra+=`<div style="margin-top:6px"><button class="hbtn ${smokedH?'hbtn-c':'hbtn-s'}" onclick="event.stopPropagation();toggleHourLog(${h})" type="button" style="font-size:11px;padding:5px 8px">${smokedH?'↩ Изменить':'↩ Изменить'}</button></div>`;
+    }
+    else{
+      st=isToday&&h===nowH?'⏱ Сейчас':'Не отмечено';
+      extra=`<div class="hbtns"><button class="hbtn hbtn-s" onclick="event.stopPropagation();quickLogH(${h},true)" type="button">🚬</button><button class="hbtn hbtn-c" onclick="event.stopPropagation();quickLogH(${h},false)" type="button">✅</button></div>`;
+    }
+    return`<div class="${cls}" onclick="${!fut&&!logged?`openHourModal(${h})`:''}"><div class="htime">${pad(h)}:00</div><div class="hstatus">${st}</div>${extra}</div>`;
   }).join('');
 }
 
@@ -1102,6 +1295,7 @@ function showScreen(s){
     document.getElementById('lb-list').innerHTML='<div style="text-align:center;padding:30px;color:var(--t3)">Обновляем... <span class="spinner"></span></div>';
     updateLB();
   }
+  if(s==='jour'){jourViewDate=new Date();renderJour();}
   render();
 }
 
@@ -1196,6 +1390,172 @@ function showToast(icon,title,sub){
 }
 
 /* ── Init ── */
+/* ── Onboarding steps ── */
+let obDateChoice='now';
+let jourViewDate=null; // null = today
+
+function goStep2(){
+  const name=document.getElementById('inp-name').value.trim();
+  if(!name){document.getElementById('inp-name').focus();return;}
+  document.getElementById('ob-step1').style.display='none';
+  document.getElementById('ob-step2').style.display='flex';
+  // Pre-fill today's date
+  const today=new Date();
+  const todayStr=today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+  document.getElementById('inp-start-date').value=todayStr;
+  selDateOpt('now');
+}
+function goBackStep1(){
+  document.getElementById('ob-step2').style.display='none';
+  document.getElementById('ob-step1').style.display='flex';
+}
+function goStep3(){
+  document.getElementById('ob-step2').style.display='none';
+  document.getElementById('ob-step3').style.display='flex';
+}
+function goBackStep2(){
+  document.getElementById('ob-step3').style.display='none';
+  document.getElementById('ob-step2').style.display='flex';
+}
+
+function selDateOpt(opt){
+  obDateChoice=opt;
+  ['now','today','custom'].forEach(o=>{
+    const el=document.getElementById('date-opt-'+o);
+    if(!el)return;
+    if(o===opt){
+      el.style.borderColor='var(--g)';
+      el.style.background='rgba(48,209,88,0.08)';
+    } else {
+      el.style.borderColor='var(--border)';
+      el.style.background='var(--card)';
+    }
+  });
+  const picker=document.getElementById('date-custom-picker');
+  if(picker)picker.style.display=opt==='custom'?'block':'none';
+  if(opt==='custom')updateDayPreview();
+}
+
+function updateDayPreview(){
+  const inp=document.getElementById('inp-start-date');
+  const preview=document.getElementById('day-preview');
+  const previewNum=document.getElementById('day-preview-num');
+  if(!inp||!preview||!previewNum)return;
+  const val=inp.value;
+  if(!val){preview.style.display='none';return;}
+  const start=new Date(val+'T00:00:00');
+  const days=Math.max(0,Math.floor((new Date()-start)/864e5));
+  preview.style.display='block';
+  previewNum.textContent=days+' '+(days===1?'день':days<5?'дня':'дней')+' 🔥';
+}
+
+function getStartDate(){
+  if(obDateChoice==='now') return new Date().toISOString();
+  if(obDateChoice==='today'){
+    const t=new Date();t.setHours(0,0,0,0);return t.toISOString();
+  }
+  const val=document.getElementById('inp-start-date').value;
+  if(val) return new Date(val+'T00:00:00').toISOString();
+  return new Date().toISOString();
+}
+
+/* ── Journal calendar ── */
+function jourNavDay(dir){
+  if(!jourViewDate)jourViewDate=new Date();
+  jourViewDate.setDate(jourViewDate.getDate()+dir);
+  const today=new Date();today.setHours(23,59,59,999);
+  if(jourViewDate>today)jourViewDate=new Date();
+  renderJour();
+}
+
+function jourSelectDay(dateStr){
+  jourViewDate=new Date(dateStr+'T12:00:00');
+  renderJour();
+}
+
+function getDayColor(dateStr){
+  const log=(d.hourLog||{})[dateStr]||{};
+  const keys=Object.keys(log);
+  if(!keys.length)return null;
+  const smoked=Object.values(log).filter(v=>v&&v!==false).length;
+  const limit=d.currentLimit||20;
+  if(smoked===0)return 'green';
+  if(smoked<=limit)return 'amber';
+  return 'red';
+}
+
+function renderJourCalendar(){
+  if(!jourViewDate)jourViewDate=new Date();
+  const year=jourViewDate.getFullYear();
+  const month=jourViewDate.getMonth();
+  const months=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  const lbl=document.getElementById('jour-month-lbl');
+  if(lbl)lbl.textContent=months[month]+' '+year;
+  const grid=document.getElementById('jour-cal-grid');
+  if(!grid)return;
+  const firstDay=new Date(year,month,1);
+  const startDow=(firstDay.getDay()+6)%7;
+  const dim=new Date(year,month+1,0).getDate();
+  const today=new Date();
+  const todayStr=today.getFullYear()+'-'+pad(today.getMonth()+1)+'-'+pad(today.getDate());
+  const selStr=jourViewDate.getFullYear()+'-'+pad(jourViewDate.getMonth()+1)+'-'+pad(jourViewDate.getDate());
+  let html='';
+  for(let i=0;i<startDow;i++)html+='<div></div>';
+  for(let day=1;day<=dim;day++){
+    const ds=year+'-'+pad(month+1)+'-'+pad(day);
+    const isSel=ds===selStr,isToday=ds===todayStr,isFuture=ds>todayStr;
+    const col=getDayColor(ds);
+    let bg='transparent',color='var(--t3)',fw='400';
+    if(isSel){bg='#30D158';color='#000';fw='700';}
+    else if(isToday&&!isSel){bg='rgba(48,209,88,0.15)';color='#30D158';fw='600';}
+    else if(!isFuture&&col==='green'){bg='rgba(48,209,88,0.15)';color='#30D158';fw='600';}
+    else if(!isFuture&&col==='amber'){bg='rgba(255,159,10,0.15)';color='#FF9F0A';fw='600';}
+    else if(!isFuture&&col==='red'){bg='rgba(255,69,58,0.15)';color='#FF453A';fw='600';}
+    else if(!isFuture&&col===null&&ds>=((d.startDate||'').split('T')[0])){color='var(--t2)';}
+    html+=`<div class="cal-day-mini" style="background:${bg};color:${color};font-weight:${fw}" onclick="jourSelectDay('${ds}')" >${day}</div>`;
+  }
+  grid.innerHTML=html;
+}
+
+/* ── Switchable hour buttons ── */
+function toggleHourLog(h){
+  const today=jourViewDate?jourViewDate.toISOString().split('T')[0]:todayKey();
+  if(!d.hourLog)d.hourLog={};
+  if(!d.hourLog[today])d.hourLog[today]={};
+  const cur=d.hourLog[today][String(h)];
+  // Cycle: undefined → false (clean) → trigger modal (smoked) → undefined
+  if(cur===undefined||cur===null){
+    // Mark as clean
+    d.hourLog[today][String(h)]=false;
+    d.todaySmoked=Object.values(d.hourLog[today]).filter(v=>v&&v!==false).length;
+    save();render();showToast('✅','Отмечено',pad(h)+':00 — держался 💪');
+  } else if(cur===false){
+    // Switch to smoked - open trigger modal
+    pendingHour=h;selHourTrigVal=null;
+    document.querySelectorAll('#hour-trig-grid .trig-btn').forEach(b=>b.classList.remove('sel'));
+    const btn=document.getElementById('hour-smoked-btn');if(btn){btn.disabled=true;btn.style.opacity='0.4';}
+    document.getElementById('hour-modal-title').textContent=pad(h)+':00 — '+pad(h+1)+':00';
+    openModal('hour-modal');
+  } else {
+    // Switch back to undefined (remove)
+    delete d.hourLog[today][String(h)];
+    d.todaySmoked=Object.values(d.hourLog[today]).filter(v=>v&&v!==false).length;
+    save();render();showToast('↩️','Отменено','Запись удалена');
+  }
+}
+
+/* ── Not-smoked counter ── */
+function calcNotSmoked(){
+  const mins=minsSince(d.startDate||new Date().toISOString());
+  const days=Math.floor(mins/1440);
+  const limit=d.currentLimit||20;
+  const expectedSmoked=days*limit;
+  const actualSmoked=Object.values(d.hourLog||{}).reduce((acc,dayLog)=>{
+    return acc+Object.values(dayLog||{}).filter(v=>v&&v!==false).length;
+  },0)+(d.todaySmoked||0);
+  return Math.max(0,expectedSmoked-actualSmoked);
+}
+
 /* ── Achievement system ── */
 const ACHIEVEMENTS=[
   {id:'day1',   days:1,  emoji:'🌱', title:'Первый день!',     sub:'Ты продержался целый день без сигареты. Это начало!'},
